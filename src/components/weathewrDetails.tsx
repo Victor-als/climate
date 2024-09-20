@@ -13,17 +13,35 @@ interface IWeatherDetailsProps {
 const getAirQualityCategory = (aqi: number) => {
   switch (aqi) {
     case 1:
-      return "Boa";
+      return { 
+        label: "Boa", 
+        className: "bg-green-700 rounded-xl text-green-100 px-4 font-semibold" 
+      };
     case 2:
-      return "Moderada";
+      return { 
+        label: "Moderada", 
+        className: " bg-yellow-600 rounded-xl text-yellow-50 px-4 font-semibold" 
+      };
     case 3:
-      return "Ruim";
+      return { 
+        label: "Ruim", 
+        className: "bg-orange-600 rounded-xl text-orange-100 px-4 font-semibold" 
+      };
     case 4:
-      return "Ruim";
+      return { 
+        label: "Ruim", 
+        className: "bg-red-500 px-4 text-red-100 font-semibold rounded-xl" 
+      };
     case 5:
-      return "Muito ruim";
+      return { 
+        label: "Muito ruim",
+        className: "bg-red-900 px-4 font-semibold text-red-100 rounded-xl" 
+      };
     default:
-      return "Desconhecida";
+      return { 
+        label: "Desconhecida", 
+        className: "bg-gray-500 text-gray-50 px-4 font-semibold rounded-xl" 
+      };
   }
 };
 export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
@@ -52,10 +70,14 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
     }
   }, [currentWeather]);
 
+  const airQualityInfo = airQuality
+    ? getAirQualityCategory(airQuality.list[0].main.aqi)
+    : { label: 'Carregando...', className: '' };
+
   return( 
     <div className="px-8 py-6 shadow-shape 
     bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-25 bg-sky-400 
-    rounded-3xl text-zinc-300">
+    rounded-3xl text-zinc-300 bg-red ">
       
        <h2 className="text-zinc-50 font-bold pt-4">Detalhes de hoje</h2>
 
@@ -65,7 +87,9 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
           gap-2 rounded-3xl py-4 px-6 h-auto w-auto">
             <div className="flex justify-between">
               <p>Qualidade do ar</p>
-              {airQuality ? getAirQualityCategory(airQuality.list[0].main.aqi) : 'Carregando...'}
+              <p className={airQualityInfo.className}>
+                {airQualityInfo.label}
+              </p>
             </div>
              
             <div className="flex gap-5 mt-[1.70rem] items-center">
@@ -146,9 +170,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
                   </div>
                </div>
              </div>
-              
            </div>
-
           </div>
 
       <div className="flex mt-4 gap-4">
