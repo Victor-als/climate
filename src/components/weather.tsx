@@ -2,8 +2,8 @@
 
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { Droplet, MapPin } from "lucide-react";
-import { WeatherDetails } from "./weathewrDetails";
+import { CalendarDays, Droplet, MapPin } from "lucide-react";
+import { WeatherDetails } from "./weatherDetails";
 
 interface IWeatherProps {
   weatherData: any;
@@ -22,8 +22,8 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
 
   return (
     <div className="flex gap-16">
-     <div className="flex-col pl-40 items-start flex text-white">
-       <div className="absolute w-32 h-16 blur-md top-48 left-[20rem] rounded-full shadow-2xl shadow-blue-800/100 bg-blue-600 bg-blue-"></div>
+     <div className="flex-col pl-16 items-start flex text-white">
+       <div className="absolute w-32 h-16 blur-md top-48 left-[16rem] rounded-full shadow-2xl shadow-blue-800/100 bg-blue-600 bg-blue-"></div>
       {currentWeather && (
         <div className="flex pl-10 w-[23rem] flex-col shadow-shape items-start justify-center 
           p-10 bg-white bg-clip-padding backdrop-filter 
@@ -50,7 +50,10 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
 
       {weatherData && (
         <div className='mt-8'>
-          <h2 className="font-bold text-zinc-50 mb-4">Previsão dos próximos 5 dias</h2>
+          <h2 className="font-bold ml-4 flex items-center gap-4 text-zinc-50 mb-4">
+            <CalendarDays size={22}/>
+            Previsão dos próximos 5 dias
+          </h2>
           <div className="bg-white bg-clip-padding backdrop-filter backdrop-blur-sm 
            bg-opacity-10 w-[23rem] shadow-shape rounded-3xl text-zinc-50 px-4">
             <div className="flex flex-col items-start">
@@ -78,7 +81,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
     </div>
 
       <div>
-      <WeatherDetails currentWeather={currentWeather} />
+        <WeatherDetails currentWeather={currentWeather} />
       </div>
    </div>
   );

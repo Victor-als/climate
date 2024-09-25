@@ -76,23 +76,23 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
 
   return( 
     <div className="px-8 py-6 shadow-shape 
-    bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-25 bg-sky-400 
-    rounded-3xl text-zinc-300 bg-red ">
+    bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 bg-white 
+    rounded-3xl text-zinc-300 w-[75rem]">
       
        <h2 className="text-zinc-50 font-bold pt-4">Detalhes de hoje</h2>
 
     <div className="flex gap-10 mt-6">
       <div>
           <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center 
-          gap-2 rounded-3xl py-4 px-6 h-auto w-auto">
+          gap-2 rounded-3xl py-4 px-6 h-auto w-[34rem]">
             <div className="flex justify-between">
-              <p>Qualidade do ar</p>
+              <p className="font-medium">Qualidade do ar</p>
               <p className={airQualityInfo.className}>
                 {airQualityInfo.label}
               </p>
             </div>
              
-            <div className="flex gap-5 mt-[1.70rem] items-center">
+            <div className="flex gap-8 mt-[1.70rem] items-center">
 
               <Wind size={48}/>
 
@@ -128,18 +128,18 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
 
 
         <div className="flex mt-4 gap-4">
-            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-6 px-8 h-auto w-auto">
-              <p className="text-xs">Sensação Térmica</p>
+            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+              <p className="text-md font-semibold">Sensação Térmica</p>
               <div className="flex gap-10">
-                <Thermometer size={32}/>
-                <p className="text-lg font-medium">{formatTemperature(currentWeather.main.feels_like)}°C</p>
+                <Thermometer size={38}/>
+                <p className="text-3xl font-medium">{formatTemperature(currentWeather.main.feels_like)}°C</p>
               </div>
             </div>
-            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-6 px-8 h-auto w-auto">
-              <p className="text-xs">Vento</p>
+            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+              <p className="text-md font-semibold">Vento</p>
               <div className="flex gap-10">
-                <Wind size={32}/>
-                <p className="text-lg font-medium">{currentWeather.wind.speed} m/s</p>
+                <Wind size={38}/>
+                <p className="text-3xl font-medium">{currentWeather.wind.speed} m/s</p>
               </div>
             </div>
           </div>
@@ -147,25 +147,25 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
 
 
         <div className="flex flex-col">
-          <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-5 px-6 h-auto w-auto">
-           <span className="mb-4">Nascer e Por do sol</span>
+          <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-5 px-6 h-auto w-[34rem]">
+           <span className="mb-4 font-medium">Nascer e Por do sol</span>
 
-           <div className="flex items-center gap-16 justify-start">
+           <div className="flex items-center gap-32 justify-start">
              <div>
-              <div className="flex gap-3 items-end">
-                <Sun size={46}/>
+              <div className="flex gap-6 items-end">
+                <Sun size={48}/>
                 <div>
-                  <p className="text-zinc-400 text-sm">Nascer do sol</p>
+                  <p className="text-zinc-400 text-sm font-semibold">Nascer do sol</p>
                   <span className="text-semibold text-4xl">{formatTime(currentWeather.sys.sunrise)}</span>
                 </div>
               </div>
              </div>
 
              <div>
-               <div className="flex gap-3 items-end">
-                  <Moon size={46}/>
+               <div className="flex gap-6 items-end">
+                  <Moon size={48}/>
                   <div >
-                    <p className="text-zinc-400 text-sm">Por do sol</p>
+                    <p className="text-zinc-400 text-sm font-semibold">Por do sol</p>
                     <span className="text-semibold text-4xl">{formatTime(currentWeather.sys.sunset)}</span>
                   </div>
                </div>
@@ -174,18 +174,18 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
           </div>
 
       <div className="flex mt-4 gap-4">
-          <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-6 px-8 h-auto w-auto">
-              <p className="text-xs">Pressão Atmosférica</p>
+          <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+              <p className="text-md font-semibold">Pressão Atmosférica</p>
             <div className="flex gap-10">
               <Waves size={32}/>
-              <p className="text-lg font-medium">{currentWeather.main.pressure} hPa</p>
+              <p className="text-3xl font-medium">{currentWeather.main.pressure} hPa</p>
             </div>
           </div>
-          <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-6 px-8 h-auto w-auto">
-            <p className="text-xs">Visibilidade</p>
+          <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+            <p className="text-md font-semibold">Visibilidade</p>
             <div className="flex gap-10">
               <Eye size={32}/>
-              <p className="text-lg font-medium">{currentWeather.visibility / 1000} km</p>
+              <p className="text-3xl font-medium">{currentWeather.visibility / 1000} km</p>
             </div>
           </div>
         </div>
