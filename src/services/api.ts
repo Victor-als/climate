@@ -11,10 +11,16 @@ export const getWeatherData = async (city: string) => {
         appid: apiKey,
         units: 'metric',
         lang: 'pt_br',
-        cnt: 40 // Para obter os dados das próximas 5 dias (3 horas de intervalo)
-      }
+        cnt: 40, // Pegando até 5 dias de previsão com intervalos de 3 horas
+      },
     });
-    return response.data;
+
+    if (response.data && response.data.list) {
+      return response.data; // Garante que a função retorna corretamente
+    } else {
+      console.error("Erro: Dados de previsão não estão no formato esperado.");
+      return { list: [] }; // Retorna um objeto vazio para evitar erro de undefined
+    }
   } catch (error) {
     console.error('Erro ao buscar os dados do clima:', error);
     throw error;

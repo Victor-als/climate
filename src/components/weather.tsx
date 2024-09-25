@@ -2,8 +2,10 @@
 
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { CalendarDays, Droplet, MapPin } from "lucide-react";
+import { CalendarDays, Clock, Droplet, MapPin } from "lucide-react";
 import { WeatherDetails } from "./weatherDetails";
+import { useEffect, useState } from "react";
+import { getWeatherData } from "../services/api";
 
 interface IWeatherProps {
   weatherData: any;
@@ -11,6 +13,7 @@ interface IWeatherProps {
 }
 
 export function Weather ({currentWeather, weatherData}: IWeatherProps){
+  const [hourlyForecast, setHourlyForecast] = useState<any[]>([])
 
   const getIconUrl = (iconCode: string) => `http://openweathermap.org/img/wn/${iconCode}.png`;
 
@@ -19,6 +22,23 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
   const formatDate = (timestamp: number) => {
     return format(new Date(timestamp * 1000), 'dd MMM', { locale: ptBR });
   };
+
+  useEffect(() => {
+    const fetchHourlyForecast = async () => {
+      try {
+        if (currentWeather?.name) {
+          const data = await getWeatherData(currentWeather.name);
+          if (data && data.list) {
+            setHourlyForecast(data.list.slice(0, 8)); // Próximas 24 horas
+          }
+        }
+      } catch (error) {
+        console.error("Erro ao buscar a previsão horária:", error);
+      }
+    };
+
+    fetchHourlyForecast();
+  }, [currentWeather]);
 
   return (
     <div className="flex gap-16">
@@ -57,7 +77,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
           <div className="bg-white bg-clip-padding backdrop-filter backdrop-blur-sm 
            bg-opacity-10 w-[23rem] shadow-shape rounded-3xl text-zinc-50 px-4">
             <div className="flex flex-col items-start">
-              {weatherData.list.filter((_: any, index: number) => index % 8 === 0).map((day: any, index: number) => (
+              {weatherData && weatherData.list && weatherData.list.filter((_: any, index: number) => index % 8 === 0).map((day: any, index: number) => (
                 <div key={index} className="p-2 w-full rounded-md">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
@@ -80,9 +100,41 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
         )}
     </div>
 
-      <div>
+      <div >
         <WeatherDetails currentWeather={currentWeather} />
+
+        {hourlyForecast.length > 0 && (
+        <div className="mt-8">
+          <h2 className="font-bold ml-4 flex items-center gap-4 text-zinc-50 mb-4">
+            <Clock size={22} />
+            Previsão de 24 horas
+          </h2>
+          <div className="flex gap-5">
+            {hourlyForecast.map((hour, index) => (
+              <div
+                key={index}
+                className="bg-white bg-clip-padding backdrop-filter backdrop-blur-md 
+                bg-opacity-10 p-4 rounded-xl shadow-lg text-zinc-50 flex flex-col items-center w-[8.2rem] h-auto"
+              >
+                <p className="text-xl font-semibold">
+                  {format(new Date(hour.dt * 1000), "HH:mm")}
+                </p>
+                <img
+                  src={getIconUrl(hour.weather[0].icon)}
+                  alt={hour.weather[0].description}
+                  className="w-20 h-20"
+                />
+                <p className="text-2xl font-semibold">
+                  {formatTemperature(hour.main.temp)}°C 
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       </div>
+
+     
    </div>
   );
 };
