@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { format } from "date-fns";
-import { Eye, Moon, Sun, Thermometer, Waves, Wind } from "lucide-react";
+import { CloudRain, Eye, Moon, Sunrise, Thermometer, Waves, Wind } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getAirQualityData } from "../services/api";
+import { getAirQualityData, getWeatherData } from "../services/api";
 
 interface IWeatherDetailsProps {
   currentWeather: any;
@@ -46,6 +46,7 @@ const getAirQualityCategory = (aqi: number) => {
 };
 export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
   const [airQuality, setAirQuality] = useState<any>(null);
+  const [rainProbability, setRainProbability] = useState<number | null>(null);
 
 
   const formatTemperature = (temp: number) => Math.round(temp); 
@@ -65,11 +66,21 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
       }
     };
 
+    const fetchRainProbability = async () => {
+      try {
+        const weatherData = await getWeatherData(currentWeather.name); // Busca pela cidade atual
+        setRainProbability(weatherData.rainProbability); // Atualiza a probabilidade de chuva
+      } catch (error) {
+        console.error('Erro ao buscar a probabilidade de chuva:', error);
+      }
+    };
+
     if (currentWeather) {
       fetchAirQuality();
+      fetchRainProbability();
     }
   }, [currentWeather]);
-
+  
   const airQualityInfo = airQuality
     ? getAirQualityCategory(airQuality.list[0].main.aqi)
     : { label: 'Carregando...', className: '' };
@@ -128,14 +139,14 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
 
 
         <div className="flex mt-4 gap-4">
-            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
               <p className="text-md font-semibold">Sensação Térmica</p>
               <div className="flex gap-10">
                 <Thermometer size={38}/>
                 <p className="text-3xl font-medium">{formatTemperature(currentWeather.main.feels_like)}°C</p>
               </div>
             </div>
-            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
               <p className="text-md font-semibold">Vento</p>
               <div className="flex gap-10">
                 <Wind size={38}/>
@@ -153,7 +164,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
            <div className="flex items-center gap-32 justify-start">
              <div>
               <div className="flex gap-6 items-end">
-                <Sun size={48}/>
+                <Sunrise size={48}/>
                 <div>
                   <p className="text-zinc-400 text-sm font-semibold">Nascer do sol</p>
                   <span className="text-semibold text-4xl">{formatTime(currentWeather.sys.sunrise)}</span>
@@ -174,14 +185,14 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
           </div>
 
       <div className="flex mt-4 gap-4">
-          <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+          <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
               <p className="text-md font-semibold">Pressão Atmosférica</p>
             <div className="flex gap-10">
               <Waves size={32}/>
               <p className="text-3xl font-medium">{currentWeather.main.pressure} hPa</p>
             </div>
           </div>
-          <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+          <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
             <p className="text-md font-semibold">Visibilidade</p>
             <div className="flex gap-10">
               <Eye size={32}/>
@@ -189,10 +200,21 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
             </div>
           </div>
         </div>
-    </div>
-    </div>
 
-     
+
+         <div className="flex flex-col mt-6">
+            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-5 px-6 h-auto w-[34rem]">
+              <span className="mb-4 font-medium">Probabilidade de Chuva</span>
+              <div className="">
+                <p className="text-4xl flex items-center gap-6 font-medium">
+                  <CloudRain size={48}/>
+                {rainProbability !== null ? `${Math.round(rainProbability * 100)}%` : 'Carregando...'}
+                </p> 
+              </div>
+            </div>
+          </div> 
+        </div>
+    </div>
   </div>
   )
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 
 const apiKey = '79e5ae406a69834d1df458a76763d745';
@@ -16,10 +17,39 @@ export const getWeatherData = async (city: string) => {
     });
 
     if (response.data && response.data.list) {
-      return response.data; // Garante que a função retorna corretamente
+      const currentDate = new Date();
+      const today = currentDate.getDate(); // Dia atual
+      const currentHour = currentDate.getHours(); // Hora atual
+
+      // Filtra as previsões para o dia atual e a partir da hora atual
+      const todayForecasts = response.data.list.filter((forecast: { dt: number; }) => {
+        const forecastDate = new Date(forecast.dt * 1000);
+        const forecastDay = forecastDate.getDate();
+        const forecastHour = forecastDate.getHours();
+
+        // Retorna apenas as previsões para o dia atual e a partir da hora atual
+        return forecastDay === today && forecastHour >= currentHour;
+      });
+
+      if (todayForecasts.length > 0) {
+        // Extrai as probabilidades de chuva para cada previsão do dia
+        const rainProbabilities = todayForecasts.map((forecast: any[]) => forecast.pop);
+        
+        // Calcula a média da probabilidade de chuva
+        const avgRainProbability = rainProbabilities.reduce((a: any, b: any) => a + b, 0) / rainProbabilities.length;
+        
+        console.log("Probabilidade de Chuva Hoje:", avgRainProbability);
+       
+        return {
+          ...response.data,
+           rainProbability: avgRainProbability }; // Retorna a probabilidade média de chuva para o dia atual
+      } else {
+        console.error("Erro: Não há previsões disponíveis para o restante do dia de hoje.");
+        return { rainProbability: null }; // Retorna null se não houver previsões para o restante do dia
+      }
     } else {
       console.error("Erro: Dados de previsão não estão no formato esperado.");
-      return { list: [] }; // Retorna um objeto vazio para evitar erro de undefined
+      return { rainProbability: null }; // Retorna null para evitar erros
     }
   } catch (error) {
     console.error('Erro ao buscar os dados do clima:', error);

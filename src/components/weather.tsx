@@ -57,7 +57,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
                 <img className="w-[5rem]" src={getIconUrl(currentWeather.weather[0].icon)} alt={currentWeather.weather[0].description} />
               </div>
 
-              <div className="flex flex-1 gap-6">
+              <div className="flex flex-1 gap-6 mt-5">
                 <h2 className="flex items-center justify-center gap-1 text-md">
                     <MapPin size={18}/>
                     {currentWeather.name}
@@ -75,21 +75,21 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
             Previsão dos próximos 5 dias
           </h2>
           <div className="bg-white bg-clip-padding backdrop-filter backdrop-blur-sm 
-           bg-opacity-10 w-[23rem] shadow-shape rounded-3xl text-zinc-50 px-4">
-            <div className="flex flex-col items-start">
+           bg-opacity-10 w-[23rem] h-[28rem] shadow-shape rounded-3xl text-zinc-50 pt-4 px-4">
+            <div className="flex flex-col gap-2">
               {weatherData && weatherData.list && weatherData.list.filter((_: any, index: number) => index % 8 === 0).map((day: any, index: number) => (
                 <div key={index} className="p-2 w-full rounded-md">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <img src={getIconUrl(day.weather[0].icon)} alt={day.weather[0].description} />
-                      <p className="text-md flex">{formatTemperature(day.main.temp)}
+                      <p className="text-lg flex">{formatTemperature(day.main.temp)}
                         <span className="text-xs">°C</span>
                       </p>
                     </div>
-                      <p className="text-md font-semibold">
+                      <p className="text-lg font-semibold">
                       {formatDate(day.dt)}
                       </p>
-                      <p className="text-sm">{day.weather[0].description}</p>
+                      <p className="text-md">{day.weather[0].description}</p>
                   </div>
                 </div>
               ))}
@@ -104,7 +104,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
         <WeatherDetails currentWeather={currentWeather} />
 
         {hourlyForecast.length > 0 && (
-        <div className="mt-8">
+        <div className="mt-8 mb-16">
           <h2 className="font-bold ml-4 flex items-center gap-4 text-zinc-50 mb-4">
             <Clock size={22} />
             Previsão de 24 horas
