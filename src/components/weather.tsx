@@ -41,8 +41,8 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
   }, [currentWeather]);
 
   return (
-    <div className="flex gap-16">
-     <div className="flex-col pl-16 items-start flex text-white">
+    <div className="flex justify-evenly mb-16">
+     <div className="flex-col flex text-white ">
        <div className="absolute w-32 h-16 blur-md top-48 left-[16rem] rounded-full shadow-2xl shadow-blue-800/100 bg-blue-600 bg-blue-"></div>
       {currentWeather && (
         <div className="flex pl-10 w-[23rem] flex-col shadow-shape items-start justify-center 
@@ -100,41 +100,40 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
         )}
     </div>
 
-      <div >
-        <WeatherDetails currentWeather={currentWeather} />
 
-        {hourlyForecast.length > 0 && (
-        <div className="mt-8 mb-16">
-          <h2 className="font-bold ml-4 flex items-center gap-4 text-zinc-50 mb-4">
-            <Clock size={22} />
-            Previsão de 24 horas
-          </h2>
-          <div className="flex gap-5">
-            {hourlyForecast.map((hour, index) => (
-              <div
-                key={index}
-                className="bg-white bg-clip-padding backdrop-filter backdrop-blur-md 
-                bg-opacity-10 p-4 rounded-xl shadow-lg text-zinc-50 flex flex-col items-center w-[8.2rem] h-auto"
-              >
-                <p className="text-xl font-semibold">
-                  {format(new Date(hour.dt * 1000), "HH:mm")}
-                </p>
-                <img
-                  src={getIconUrl(hour.weather[0].icon)}
-                  alt={hour.weather[0].description}
-                  className="w-20 h-20"
-                />
-                <p className="text-2xl font-semibold">
-                  {formatTemperature(hour.main.temp)}°C 
-                </p>
+     <div>
+            <WeatherDetails currentWeather={currentWeather} />
+
+            {hourlyForecast.length > 0 && (
+              <div className="flex flex-col gap-4 ">
+                <h2 className="font-bold flex items-center gap-4 text-zinc-50">
+                  <Clock size={22} />
+                  Previsão de 24 horas
+                </h2>
+                <div className="flex gap-5 overflow-x-auto">  {/* Adicionei overflow-x-auto */}
+                  {hourlyForecast.map((hour, index) => (
+                    <div
+                      key={index}
+                      className="bg-white bg-clip-padding backdrop-filter backdrop-blur-md 
+                      bg-opacity-10 p-4 rounded-xl shadow-lg text-zinc-50 flex flex-col items-center w-[8.2rem] h-auto"
+                    >
+                      <p className="text-xl font-semibold">
+                        {format(new Date(hour.dt * 1000), "HH:mm")}
+                      </p>
+                      <img
+                        src={getIconUrl(hour.weather[0].icon)}
+                        alt={hour.weather[0].description}
+                        className="w-20 h-20"
+                      />
+                      <p className="text-2xl font-semibold">
+                        {formatTemperature(hour.main.temp)}°C 
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
+            )}
           </div>
-        </div>
-      )}
-      </div>
-
-     
    </div>
   );
 };

@@ -3,7 +3,7 @@
 import { format } from "date-fns";
 import { CloudRain, Eye, Moon, Sunrise, Thermometer, Waves, Wind } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getAirQualityData, getWeatherData } from "../services/api";
+import { getAirQualityData, getWeatherData, getUVIndex } from "../services/api";
 
 interface IWeatherDetailsProps {
   currentWeather: any;
@@ -47,6 +47,8 @@ const getAirQualityCategory = (aqi: number) => {
 export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
   const [airQuality, setAirQuality] = useState<any>(null);
   const [rainProbability, setRainProbability] = useState<number | null>(null);
+  const [uvIndex, setUVIndex] = useState<number | null>(null);
+
 
 
   const formatTemperature = (temp: number) => Math.round(temp); 
@@ -75,9 +77,22 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
       }
     };
 
+    const fetchUVIndex = async () => {
+      const { coord } = currentWeather;
+      if (coord) {
+        try {
+          const uvData = await getUVIndex(coord.lat, coord.lon);
+          setUVIndex(uvData.value);
+        } catch (error) {
+          console.error('Erro ao buscar o índice UV:', error);
+        }
+      }
+    };
+
     if (currentWeather) {
       fetchAirQuality();
       fetchRainProbability();
+      fetchUVIndex();
     }
   }, [currentWeather]);
   
@@ -88,7 +103,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
   return( 
     <div className="px-8 py-6 shadow-shape 
     bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 bg-white 
-    rounded-3xl text-zinc-300 w-[75rem]">
+    rounded-3xl text-zinc-300 w-[75rem] mb-10">
       
        <h2 className="text-zinc-50 font-bold pt-4">Detalhes de hoje</h2>
 
@@ -154,6 +169,15 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
               </div>
             </div>
           </div>
+            <div className="flex mt-4 gap-4">
+              <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+                <p className="text-md font-semibold">Índice UV</p>
+                <div className="flex gap-10">
+                  <Eye size={32}/>
+                  <p className="text-3xl font-medium">{uvIndex !== null ? uvIndex : 'Carregando...'}</p>
+                </div>
+              </div>
+            </div>
         </div>
 
 
