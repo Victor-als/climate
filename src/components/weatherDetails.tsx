@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { format } from "date-fns";
-import { CloudRain, Eye, Moon, Sunrise, Thermometer, Waves, Wind } from "lucide-react";
+import { CloudRain, Eye, Moon, Sun, Sunrise, Sunset, Thermometer, Waves, Wind } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getAirQualityData, getWeatherData, getUVIndex } from "../services/api";
+import { getAirQualityData, getWeatherData, getUVIndex} from "../services/api";
 
 interface IWeatherDetailsProps {
   currentWeather: any;
@@ -48,11 +48,29 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
   const [airQuality, setAirQuality] = useState<any>(null);
   const [rainProbability, setRainProbability] = useState<number | null>(null);
   const [uvIndex, setUVIndex] = useState<number | null>(null);
+  const [moonPhase, setMoonPhase] = useState<string | null>(null); // Novo estado para fase da lua
+
+
 
 
 
   const formatTemperature = (temp: number) => Math.round(temp); 
   const formatTime = (timestamp: number) => format(new Date(timestamp * 1000), 'HH:mm');
+
+  const getMoonPhase = (date: Date) => {
+    const moonCycle = 29.53; // Duração média do ciclo lunar em dias
+    const baseDate = new Date(2000, 0, 6); // Data base de uma lua nova
+    const daysSinceBase = (date.getTime() - baseDate.getTime()) / (1000 * 60 * 60 * 24);
+    const phase = (daysSinceBase % moonCycle) / moonCycle;
+  
+    if (phase < 0.03) return 'Nova'; // Lua Nova
+    if (phase < 0.25) return 'Crescente'; // Lua Crescente
+    if (phase < 0.27) return 'Quarto Crescente'; // Quarto Crescente
+    if (phase < 0.53) return 'Cheia'; // Lua Cheia
+    if (phase < 0.75) return 'Minguante'; // Lua Minguante
+    if (phase < 0.77) return 'Quarto Minguante'; // Quarto Minguante
+    return 'Nova'; // Retorna à Lua Nova
+  };
 
 
   useEffect(() => {
@@ -89,10 +107,12 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
       }
     };
 
+
     if (currentWeather) {
       fetchAirQuality();
       fetchRainProbability();
       fetchUVIndex();
+      setMoonPhase(getMoonPhase(new Date())); // Calcule a fase da lua
     }
   }, [currentWeather]);
   
@@ -120,7 +140,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
              
             <div className="flex gap-8 mt-[1.70rem] items-center">
 
-              <Wind size={48}/>
+              <Wind size={42}/>
 
               <div className="flex flex-col items-center">
                 <span className="text-sm text-zinc-400 font-semibold">PM2.5</span>
@@ -157,14 +177,14 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
             <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
               <p className="text-md font-semibold">Sensação Térmica</p>
               <div className="flex gap-10">
-                <Thermometer size={38}/>
+                <Thermometer size={42}/>
                 <p className="text-3xl font-medium">{formatTemperature(currentWeather.main.feels_like)}°C</p>
               </div>
             </div>
             <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
               <p className="text-md font-semibold">Vento</p>
               <div className="flex gap-10">
-                <Wind size={38}/>
+                <Wind size={38} />
                 <p className="text-3xl font-medium">{currentWeather.wind.speed} m/s</p>
               </div>
             </div>
@@ -173,15 +193,24 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
               <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
                 <p className="text-md font-semibold">Índice UV</p>
                 <div className="flex gap-10">
-                  <Eye size={32}/>
+                  <Sun size={42}/>
                   <p className="text-3xl font-medium">{uvIndex !== null ? uvIndex : 'Carregando...'}</p>
                 </div>
               </div>
+
+              
+              <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+              <p className="text-md font-semibold">Fase da Lua</p> 
+              <div className="flex gap-10 items-center">
+                <Moon size={38}/>
+                <p className="text-2xl font-medium">{moonPhase}</p>
+              </div>
+          </div>
             </div>
         </div>
 
 
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-4">
           <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-5 px-6 h-auto w-[34rem]">
            <span className="mb-4 font-medium">Nascer e Por do sol</span>
 
@@ -198,7 +227,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
 
              <div>
                <div className="flex gap-6 items-end">
-                  <Moon size={48}/>
+                  <Sunset size={48}/>
                   <div >
                     <p className="text-zinc-400 text-sm font-semibold">Por do sol</p>
                     <span className="text-semibold text-4xl">{formatTime(currentWeather.sys.sunset)}</span>
@@ -208,35 +237,31 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
            </div>
           </div>
 
-      <div className="flex mt-4 gap-4">
+      <div className="flex gap-4">
           <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
               <p className="text-md font-semibold">Pressão Atmosférica</p>
-            <div className="flex gap-10">
-              <Waves size={32}/>
+            <div className="flex items-center gap-10">
+              <Waves size={38}/>
               <p className="text-3xl font-medium">{currentWeather.main.pressure} hPa</p>
             </div>
           </div>
           <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
             <p className="text-md font-semibold">Visibilidade</p>
-            <div className="flex gap-10">
-              <Eye size={32}/>
+            <div className="flex items-center gap-10">
+              <Eye size={42}/>
               <p className="text-3xl font-medium">{currentWeather.visibility / 1000} km</p>
             </div>
           </div>
         </div>
-
-
-         <div className="flex flex-col mt-6">
-            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-5 px-6 h-auto w-[34rem]">
-              <span className="mb-4 font-medium">Probabilidade de Chuva</span>
-              <div className="">
-                <p className="text-4xl flex items-center gap-6 font-medium">
-                  <CloudRain size={48}/>
-                {rainProbability !== null ? `${Math.round(rainProbability * 100)}%` : 'Carregando...'}
-                </p> 
-              </div>
-            </div>
-          </div> 
+           <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+              <p className="text-md font-semibold">Probabilidade de Chuva</p>
+                <div className="flex items-center gap-10">
+                  <CloudRain size={42} />
+                  <p className="text-3xl flex items-center gap-6 font-medium">
+                    {rainProbability !== null ? `${Math.round(rainProbability * 100)}%` : 'Carregando...'}
+                  </p> 
+                </div>
+            </div> 
         </div>
     </div>
   </div>

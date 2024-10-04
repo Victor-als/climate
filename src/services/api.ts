@@ -12,7 +12,7 @@ export const getWeatherData = async (city: string) => {
         appid: apiKey,
         units: 'metric',
         lang: 'pt_br',
-        cnt: 40, // Pegando até 5 dias de previsão com intervalos de 3 horas
+        cnt: 40, 
       },
     });
 
@@ -90,8 +90,8 @@ export const getAirQualityData = async (lat: number, lon: number) => {
   try {
     const response = await axios.get(`${baseUrl}/air_pollution`, {
       params: {
-        lat,  // Latitude da cidade
-        lon,  // Longitude da cidade
+        lat,  
+        lon,  
         appid: apiKey,
       }
     });
@@ -106,8 +106,8 @@ export const getUVIndex = async (lat: number, lon: number) => {
   try {
     const response = await axios.get(`${baseUrl}/uvi`, {
       params: {
-        lat,  // Latitude da cidade
-        lon,  // Longitude da cidade
+        lat, 
+        lon,  
         appid: apiKey,
       }
     });
