@@ -17,7 +17,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
 
   const getIconUrl = (iconCode: string) => `http://openweathermap.org/img/wn/${iconCode}.png`;
 
-  const formatTemperature = (temp: number) => Math.round(temp); // Remove decimais
+  const formatTemperature = (temp: number) => Math.round(temp); 
 
   const formatDate = (timestamp: number) => {
     return format(new Date(timestamp * 1000), 'dd MMM', { locale: ptBR });
@@ -29,7 +29,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
         if (currentWeather?.name) {
           const data = await getWeatherData(currentWeather.name);
           if (data && data.list) {
-            setHourlyForecast(data.list.slice(0, 8)); // Próximas 24 horas
+            setHourlyForecast(data.list.slice(0, 8)); 
           }
         }
       } catch (error) {
@@ -110,7 +110,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
                   <Clock size={22} />
                   Previsão de 24 horas
                 </h2>
-                <div className="flex gap-5 overflow-x-auto">  {/* Adicionei overflow-x-auto */}
+                <div className="flex gap-5 overflow-x-auto"> 
                   {hourlyForecast.map((hour, index) => (
                     <div
                       key={index}

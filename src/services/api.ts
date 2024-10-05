@@ -18,8 +18,8 @@ export const getWeatherData = async (city: string) => {
 
     if (response.data && response.data.list) {
       const currentDate = new Date();
-      const today = currentDate.getDate(); // Dia atual
-      const currentHour = currentDate.getHours(); // Hora atual
+      const today = currentDate.getDate(); 
+      const currentHour = currentDate.getHours(); 
 
       // Filtra as previsões para o dia atual e a partir da hora atual
       let todayForecasts = response.data.list.filter((forecast: { dt: number }) => {

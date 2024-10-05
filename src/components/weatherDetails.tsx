@@ -48,30 +48,41 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
   const [airQuality, setAirQuality] = useState<any>(null);
   const [rainProbability, setRainProbability] = useState<number | null>(null);
   const [uvIndex, setUVIndex] = useState<number | null>(null);
-  const [moonPhase, setMoonPhase] = useState<string | null>(null); // Novo estado para fase da lua
-
-
-
-
+  const [moonPhase, setMoonPhase] = useState<string | null>(null); 
 
   const formatTemperature = (temp: number) => Math.round(temp); 
   const formatTime = (timestamp: number) => format(new Date(timestamp * 1000), 'HH:mm');
 
   const getMoonPhase = (date: Date) => {
-    const moonCycle = 29.53; // Duração média do ciclo lunar em dias
-    const baseDate = new Date(2000, 0, 6); // Data base de uma lua nova
+    const moonCycle = 29.53; 
+    const baseDate = new Date(2000, 0, 6); 
     const daysSinceBase = (date.getTime() - baseDate.getTime()) / (1000 * 60 * 60 * 24);
     const phase = (daysSinceBase % moonCycle) / moonCycle;
   
-    if (phase < 0.03) return 'Nova'; // Lua Nova
-    if (phase < 0.25) return 'Crescente'; // Lua Crescente
-    if (phase < 0.27) return 'Quarto Crescente'; // Quarto Crescente
-    if (phase < 0.53) return 'Cheia'; // Lua Cheia
-    if (phase < 0.75) return 'Minguante'; // Lua Minguante
-    if (phase < 0.77) return 'Quarto Minguante'; // Quarto Minguante
-    return 'Nova'; // Retorna à Lua Nova
+    if (phase < 0.03) return 'Nova'; 
+    if (phase < 0.25) return 'Crescente'; 
+    if (phase < 0.27) return 'Quarto Crescente'; 
+    if (phase < 0.53) return 'Cheia'; 
+    if (phase < 0.75) return 'Minguante'; 
+    if (phase < 0.77) return 'Quarto Minguante'; 
+    return 'Nova'; 
   };
 
+
+  const getWindDirection = (degree: number) => {
+    if (degree > 337.5 || degree <= 22.5) return 'N';
+    if (degree > 22.5 && degree <= 67.5) return 'NE';
+    if (degree > 67.5 && degree <= 112.5) return 'E';
+    if (degree > 112.5 && degree <= 157.5) return 'SE';
+    if (degree > 157.5 && degree <= 202.5) return 'S';
+    if (degree > 202.5 && degree <= 247.5) return 'SW';
+    if (degree > 247.5 && degree <= 292.5) return 'W';
+    if (degree > 292.5 && degree <= 337.5) return 'NW';
+    return '';
+  };
+   
+
+  const windDirection = getWindDirection(currentWeather.wind.deg);
 
   useEffect(() => {
     const fetchAirQuality = async () => {
@@ -88,8 +99,8 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
 
     const fetchRainProbability = async () => {
       try {
-        const weatherData = await getWeatherData(currentWeather.name); // Busca pela cidade atual
-        setRainProbability(weatherData.rainProbability); // Atualiza a probabilidade de chuva
+        const weatherData = await getWeatherData(currentWeather.name); 
+        setRainProbability(weatherData.rainProbability); 
       } catch (error) {
         console.error('Erro ao buscar a probabilidade de chuva:', error);
       }
@@ -112,7 +123,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
       fetchAirQuality();
       fetchRainProbability();
       fetchUVIndex();
-      setMoonPhase(getMoonPhase(new Date())); // Calcule a fase da lua
+      setMoonPhase(getMoonPhase(new Date())); 
     }
   }, [currentWeather]);
   
@@ -198,14 +209,18 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
                 </div>
               </div>
 
-              
-              <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
-              <p className="text-md font-semibold">Fase da Lua</p> 
-              <div className="flex gap-10 items-center">
-                <Moon size={38}/>
-                <p className="text-2xl font-medium">{moonPhase}</p>
+              <div className="flex gap-10">
+                <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+                  <p className="text-md font-semibold">Vento</p>
+                  <div className="flex gap-10">
+                    <Wind size={38} />
+                    <div className="text-3xl font-medium">
+                      <p>{windDirection}</p> 
+                    </div>
+                  </div>
+                </div>
               </div>
-          </div>
+
             </div>
         </div>
 
@@ -253,6 +268,8 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
             </div>
           </div>
         </div>
+
+        <div className="flex gap-4">
            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
               <p className="text-md font-semibold">Probabilidade de Chuva</p>
                 <div className="flex items-center gap-10">
@@ -262,6 +279,15 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
                   </p> 
                 </div>
             </div> 
+
+            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+                <p className="text-md font-semibold">Fase da Lua</p> 
+                <div className="flex gap-10 items-center">
+                  <Moon size={38}/>
+                  <p className="text-2xl font-medium">{moonPhase}</p>
+              </div>
+            </div>
+        </div>
         </div>
     </div>
   </div>
