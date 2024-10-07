@@ -19,7 +19,8 @@ export function Header ({ onSearch }: IHeaderProps){
   };
   
   return(
-    <header className="flex bg-zinc-950 items-center justify-between mb-14 pt-10 px-8 ">  
+    <header className="fixed top-4 left-0 w-full flex items-center justify-between 
+     h-20 bg-opacity-90 backdrop-blur-lg shadow-md z-50 px-8 ">  
       <div className="ml-4"> 
        <img src={logo} alt="Logo" />
       </div>

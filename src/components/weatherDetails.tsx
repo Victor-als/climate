@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { format } from "date-fns";
-import { CloudRain, Eye, Moon, Sun, Sunrise, Sunset, Thermometer, Waves, Wind } from "lucide-react";
+import { CloudRain, Compass, Eye, Moon, Sun, Sunrise, Sunset, Thermometer, Waves, Wind } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getAirQualityData, getWeatherData, getUVIndex} from "../services/api";
 
@@ -70,14 +70,14 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
 
 
   const getWindDirection = (degree: number) => {
-    if (degree > 337.5 || degree <= 22.5) return 'N';
-    if (degree > 22.5 && degree <= 67.5) return 'NE';
-    if (degree > 67.5 && degree <= 112.5) return 'E';
-    if (degree > 112.5 && degree <= 157.5) return 'SE';
-    if (degree > 157.5 && degree <= 202.5) return 'S';
-    if (degree > 202.5 && degree <= 247.5) return 'SW';
-    if (degree > 247.5 && degree <= 292.5) return 'W';
-    if (degree > 292.5 && degree <= 337.5) return 'NW';
+    if (degree > 337.5 || degree <= 22.5) return 'Norte';
+    if (degree > 22.5 && degree <= 67.5) return 'Nordeste';
+    if (degree > 67.5 && degree <= 112.5) return 'Leste';
+    if (degree > 112.5 && degree <= 157.5) return 'Sudeste';
+    if (degree > 157.5 && degree <= 202.5) return 'Sul';
+    if (degree > 202.5 && degree <= 247.5) return 'Sudoeste';
+    if (degree > 247.5 && degree <= 292.5) return 'Oeste';
+    if (degree > 292.5 && degree <= 337.5) return 'Noroeste';
     return '';
   };
    
@@ -211,9 +211,9 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
 
               <div className="flex gap-10">
                 <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
-                  <p className="text-md font-semibold">Vento</p>
+                  <p className="text-md font-semibold">Direção do vento</p>
                   <div className="flex gap-10">
-                    <Wind size={38} />
+                    <Compass size={38} />
                     <div className="text-3xl font-medium">
                       <p>{windDirection}</p> 
                     </div>
