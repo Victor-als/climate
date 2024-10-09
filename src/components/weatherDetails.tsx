@@ -132,16 +132,18 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
     : { label: 'Carregando...', className: '' };
 
   return( 
-    <div className="px-8 py-6 shadow-shape 
-    bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 bg-white 
-    rounded-3xl text-zinc-300 w-[75rem] mb-10">
+    <div className="shadow-shape bg-clip-padding backdrop-filter backdrop-blur-sm 
+    bg-opacity-10 bg-white rounded-3xl text-zinc-300 lg:w-full w-full xl:w-full
+    2xl:w-[80rem] flex flex-col 2xl:items-start lg:items-start items-center lg:px-5 
+    pb-6 mb-10 mt-10 2xl:mt-0 2xl:px-10 lg:mt-0 flex-nowrap ">
       
        <h2 className="text-zinc-50 font-bold pt-4">Detalhes de hoje</h2>
 
-    <div className="flex gap-10 mt-6">
+    <div className="flex lg:flex-col 2xl:flex-row xl:w-full lg:w-full 2xl:items-center 
+     flex-col gap-10 mt-6">
       <div>
           <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center 
-          gap-2 rounded-3xl py-4 px-6 h-auto w-[34rem]">
+           gap-2 rounded-3xl py-4 px-6 h-auto 2xl:w-full lg:w-full md:w-full xl:w-full w-[22rem]">
             <div className="flex justify-between">
               <p className="font-medium">Qualidade do ar</p>
               <p className={airQualityInfo.className}>
@@ -151,68 +153,85 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
              
             <div className="flex gap-8 mt-[1.70rem] items-center">
 
-              <Wind size={42}/>
+              <Wind size={32}/>
 
-              <div className="flex flex-col items-center">
+              <div className="grid grid-cols-2 2xl:flex lg:flex lg:gap-6 2xl:gap-6 gap-3 ">
+
+              <div className="flex flex-row-reverse lg:flex-col 2xl:flex-col gap-2 items-center">
                 <span className="text-sm text-zinc-400 font-semibold">PM2.5</span>
-                <span className="text-3xl font-semibold">
+                <span className="text-xl 2xl:text-3xl lg:text-2xl font-semibold">
                   {airQuality ? airQuality.list[0].components.pm2_5 : '...'}
                 </span>
               </div>
 
-              <div className="flex flex-col items-center">
+              <div className="flex flex-row-reverse lg:flex-col 2xl:flex-col gap-2 items-center">
                 <span className="text-sm text-zinc-400 font-semibold">SO2</span>
-                <span className="text-3xl font-semibold">
+                <span className="text-xl 2xl:text-3xl lg:text-2xl font-semibold">
                   {airQuality ? airQuality.list[0].components.so2 : '...'}
                 </span>
               </div>
 
-              <div className="flex flex-col items-center">
+              <div className="flex flex-row-reverse lg:flex-col 2xl:flex-col gap-2 items-center">
                 <span className="text-sm text-zinc-400 font-semibold">NO2</span>
-                <span className="text-3xl font-semibold">
+                <span className="text-xl 2xl:text-3xl lg:text-2xl font-semibold">
                   {airQuality ? airQuality.list[0].components.no2 : '...'}
                 </span>
               </div>
 
-              <div className="flex flex-col items-center">
+              <div className="flex flex-row-reverse lg:flex-col 2xl:flex-col gap-2 items-center">
                 <span className="text-sm text-zinc-400 font-semibold">O3</span>
-                <span className="text-3xl font-semibold">
+                <span className="text-xl 2xl:text-3xl lg:text-2xl font-semibold">
                   {airQuality ? airQuality.list[0].components.o3 : '...'}
                 </span>
               </div>
             </div>
           </div>
 
+          </div>
 
-        <div className="flex mt-4 gap-4">
-            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+
+        <div className="flex flex-col lg:flex-row 2xl:flex-row mt-4 gap-4">
+            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center
+             gap-4 rounded-3xl py-6 px-8 h-auto w-full">
               <p className="text-md font-semibold">Sensação Térmica</p>
-              <div className="flex gap-10">
+              <div className="flex 2xl:justify-normal justify-between gap-10">
                 <Thermometer size={42}/>
-                <p className="text-3xl font-medium">{formatTemperature(currentWeather.main.feels_like)}°C</p>
+                <p className="text-3xl font-medium">
+                   {formatTemperature(currentWeather.main.feels_like)}°C
+                </p>
               </div>
             </div>
-            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center 
+             gap-4 rounded-3xl py-6 px-8 h-auto w-full">
               <p className="text-md font-semibold">Vento</p>
-              <div className="flex gap-10">
+              <div className="flex justify-between gap-10">
                 <Wind size={38} />
-                <p className="text-3xl font-medium">{currentWeather.wind.speed} m/s</p>
+                <p className="text-3xl font-medium">{currentWeather.wind.speed} 
+                  m/s
+                </p>
               </div>
             </div>
           </div>
-            <div className="flex mt-4 gap-4">
-              <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+            <div className="flex flex-col lg:flex-row 2xl:flex-row mt-4 gap-4">
+              <div 
+               className="bg-zinc-900 bg-opacity-50 flex flex-col gap-4 py-6 
+               px-8 justify-center rounded-3xl xl:full 2xl:w-[17.6rem] h-auto w-full"
+              >
                 <p className="text-md font-semibold">Índice UV</p>
-                <div className="flex gap-10">
+                <div className="flex justify-between gap-10">
                   <Sun size={42}/>
-                  <p className="text-3xl font-medium">{uvIndex !== null ? uvIndex : 'Carregando...'}</p>
+                  <p className="text-3xl font-medium">
+                    {uvIndex !== null ? uvIndex : 'Carregando...'}
+                  </p>
                 </div>
               </div>
 
               <div className="flex gap-10">
-                <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+                <div className="bg-zinc-900 bg-opacity-50 flex flex-col gap-4
+                 justify-center rounded-3xl py-6 px-8 2xl:w-[17.6rem] h-auto 
+                 w-full">
                   <p className="text-md font-semibold">Direção do vento</p>
-                  <div className="flex gap-10">
+                  <div className="flex justify-between gap-10">
                     <Compass size={38} />
                     <div className="text-3xl font-medium">
                       <p>{windDirection}</p> 
@@ -225,54 +244,64 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
         </div>
 
 
-        <div className="flex flex-col gap-4">
-          <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-2 rounded-3xl py-5 px-6 h-auto w-[34rem]">
+        <div className="flex flex-col gap-4 ">
+          <div className="bg-zinc-900 bg-opacity-50 flex flex-col gap-2 
+          rounded-3xl py-5 px-6 h-auto 2xl:w-full lg:w-full w-[22rem]">
            <span className="mb-4 font-medium">Nascer e Por do sol</span>
 
-           <div className="flex items-center gap-32 justify-start">
+           <div className="flex md:justify-between items-start gap-32 justify-start">
              <div>
-              <div className="flex gap-6 items-end">
-                <Sunrise size={48}/>
+              <div className="flex flex-col lg:flex-row lg:items-center 2xl:flex-row 
+               2xl:items-center gap-6 ">
+                <Sunrise size={32}/>
                 <div>
                   <p className="text-zinc-400 text-sm font-semibold">Nascer do sol</p>
-                  <span className="text-semibold text-4xl">{formatTime(currentWeather.sys.sunrise)}</span>
+                  <span className="text-semibold text-4xl">
+                    {formatTime(currentWeather.sys.sunrise)}
+                  </span>
                 </div>
               </div>
              </div>
 
              <div>
-               <div className="flex gap-6 items-end">
-                  <Sunset size={48}/>
+               <div className="flex flex-col lg:items-center lg:flex-row 2xl:flex-row 
+                2xl:items-center gap-6">
+                  <Sunset size={32}/>
                   <div >
                     <p className="text-zinc-400 text-sm font-semibold">Por do sol</p>
-                    <span className="text-semibold text-4xl">{formatTime(currentWeather.sys.sunset)}</span>
+                    <span className="text-semibold text-4xl">
+                      {formatTime(currentWeather.sys.sunset)}
+                    </span>
                   </div>
                </div>
              </div>
            </div>
           </div>
 
-      <div className="flex gap-4">
-          <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+      <div className="flex flex-col lg:flex-row 2xl:flex-row gap-4">
+          <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center 
+            gap-4 rounded-3xl py-6 px-8 2xl:w-[17.6rem] h-auto w-full">
               <p className="text-md font-semibold">Pressão Atmosférica</p>
-            <div className="flex items-center gap-10">
+            <div className="flex justify-between items-center gap-10">
               <Waves size={38}/>
               <p className="text-3xl font-medium">{currentWeather.main.pressure} hPa</p>
             </div>
           </div>
-          <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+          <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 
+             2xl:w-[17.6rem] h-auto w-full">
             <p className="text-md font-semibold">Visibilidade</p>
-            <div className="flex items-center gap-10">
+            <div className="flex justify-between items-center gap-10">
               <Eye size={42}/>
               <p className="text-3xl font-medium">{currentWeather.visibility / 1000} km</p>
             </div>
           </div>
         </div>
 
-        <div className="flex gap-4">
-           <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+        <div className="flex flex-col lg:flex-row 2xl:flex-row gap-4">
+           <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 
+             2xl:w-[17.6rem] h-auto w-full">
               <p className="text-md font-semibold">Probabilidade de Chuva</p>
-                <div className="flex items-center gap-10">
+                <div className="flex justify-between items-center gap-10">
                   <CloudRain size={42} />
                   <p className="text-3xl flex items-center gap-6 font-medium">
                     {rainProbability !== null ? `${Math.round(rainProbability * 100)}%` : 'Carregando...'}
@@ -280,11 +309,12 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
                 </div>
             </div> 
 
-            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 h-auto w-[16.4rem]">
+            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8
+              2xl:w-[17.6rem]  h-auto w-full">
                 <p className="text-md font-semibold">Fase da Lua</p> 
-                <div className="flex gap-10 items-center">
+                <div className="flex justify-between gap-10 items-center">
                   <Moon size={38}/>
-                  <p className="text-2xl font-medium">{moonPhase}</p>
+                  <p className="text-xl font-medium">{moonPhase}</p>
               </div>
             </div>
         </div>
