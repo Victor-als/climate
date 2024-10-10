@@ -41,24 +41,23 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
   }, [currentWeather]);
 
   return (
-    <div className="flex lg:flex-row lg:gap-12 2xl:flex-row 2xl:gap-16 flex-col 
-    2xl:mx-20 mx-8 mb-16 pt-36">
-     <div className="flex-col flex text-white">
-       <div className="absolute w-32 h-16 blur-md lg:top-48 top-48 left-[16rem] 
-        lg:left-[10rem] rounded-full shadow-2xl shadow-blue-800/100 bg-blue-600 bg-blue-"></div>
+    <div className="flex flex-col lg:flex-row gap-12 2xl:gap-16 mx-8 2xl:mx-20 pb-16 mb-16 pt-36">
+     <div className="flex flex-col text-white">
+       <div className="absolute w-32 h-16 blur-md top-48 left-64 lg:left-40 
+       rounded-full shadow-2xl shadow-blue-800/100 bg-blue-600"></div>
       {currentWeather && (
-        <div className="flex pl-10 w-full flex-col shadow-shape items-start p-10
+        <div className="flex pl-10 w-full flex-col shadow-shape items-start p-10 
          justify-center bg-white bg-clip-padding backdrop-filter backdrop-blur-2xl 
-         bg-opacity-5 rounded-3xl text-zinc-400">
+          bg-opacity-5 rounded-3xl text-zinc-400">
               <h2 className="flex items-center text-white gap-1 text-xl font-semibold">
                 Agora
                 </h2>
 
               <div className="flex items-center gap-16 justify-center">
-                <p className="text-7xl flex text-zinc-50 font-bold">
+                <p className="text-5xl md:text-6xl lg:text-7xl flex text-zinc-50 font-bold">
                   {formatTemperature(currentWeather.main.temp)}
                 <span className="text-lg">°C</span></p>
-                <img className="w-[5rem]" 
+                <img className="w-20 md:w-24 lg:w-20" 
                   src={getIconUrl(currentWeather.weather[0].icon)} 
                   alt={currentWeather.weather[0].description} 
                 />
@@ -78,13 +77,13 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
       )}
 
       {weatherData && (
-        <div className='mt-8'>
+        <div className='mt-8 w-full max-w-full'>
           <h2 className="font-bold ml-4 flex items-center gap-4 text-zinc-50 mb-4">
             <CalendarDays size={22}/>
             Previsão dos próximos 5 dias
           </h2>
           <div className="bg-white bg-clip-padding backdrop-filter backdrop-blur-sm 
-           bg-opacity-10 w-full h-[28rem] shadow-shape rounded-3xl text-zinc-50 pt-4 px-4">
+           bg-opacity-10 w-full h-auto max-h-[28rem] shadow-shape rounded-3xl text-zinc-50 pt-4 px-4">
             <div className="flex flex-col gap-2">
               {
                 weatherData
@@ -114,16 +113,16 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
     </div>
 
 
-     <div>
+     <div className="w-full">
             <WeatherDetails currentWeather={currentWeather} />
 
             {hourlyForecast.length > 0 && (
-              <div className="flex flex-col gap-4 xl:w-full lg:w-full">
+              <div className="flex flex-col gap-4 w-full">
                 <h2 className="font-bold flex items-center gap-6 text-zinc-50">
                   <Clock size={22} />
                   Previsão de 24 horas
                 </h2>
-                <div className="flex gap-5 2xl:gap-8 2xl:overflow-hidden overflow-x-scroll"> 
+                <div className="flex gap-5 2xl:gap-8 overflow-x-auto [&::-webkit-scrollbar]:hidden"> 
                   {hourlyForecast.map((hour, index) => (
                     <div
                       key={index}

@@ -133,9 +133,9 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
 
   return( 
     <div className="shadow-shape bg-clip-padding backdrop-filter backdrop-blur-sm 
-    bg-opacity-10 bg-white rounded-3xl text-zinc-300 lg:w-full w-full xl:w-full
-    2xl:w-[80rem] flex flex-col 2xl:items-start lg:items-start items-center lg:px-5 
-    pb-6 mb-10 mt-10 2xl:mt-0 2xl:px-10 lg:mt-0 flex-nowrap ">
+    bg-opacity-10 bg-white rounded-3xl text-zinc-300 w-full max-w-[80rem] 
+    flex flex-col items-center lg:items-start px-4 lg:px-5 pb-6 mb-10 mt-10 2xl:mt-0 
+    2xl:px-10">
       
        <h2 className="text-zinc-50 font-bold pt-4">Detalhes de hoje</h2>
 
@@ -143,7 +143,8 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
      flex-col gap-10 mt-6">
       <div>
           <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center 
-           gap-2 rounded-3xl py-4 px-6 h-auto 2xl:w-full lg:w-full md:w-full xl:w-full w-[22rem]">
+           gap-2 rounded-3xl py-4 px-6 h-auto 2xl:w-full lg:w-full md:w-full xl:w-full 
+           sm:w-full">
             <div className="flex justify-between">
               <p className="font-medium">Qualidade do ar</p>
               <p className={airQualityInfo.className}>
@@ -155,7 +156,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
 
               <Wind size={32}/>
 
-              <div className="grid grid-cols-2 2xl:flex lg:flex lg:gap-6 2xl:gap-6 gap-3 ">
+              <div className="flex flex-wrap lg:flex-nowrap gap-3">
 
               <div className="flex flex-row-reverse lg:flex-col 2xl:flex-col gap-2 items-center">
                 <span className="text-sm text-zinc-400 font-semibold">PM2.5</span>
@@ -190,9 +191,9 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
           </div>
 
 
-        <div className="flex flex-col lg:flex-row 2xl:flex-row mt-4 gap-4">
+        <div className="flex flex-col lg:flex-row 2xl:flex-row mt-4 gap-4 w-full">
             <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center
-             gap-4 rounded-3xl py-6 px-8 h-auto w-full">
+             gap-4 rounded-3xl py-6 px-8 w-full">
               <p className="text-md font-semibold">Sensação Térmica</p>
               <div className="flex 2xl:justify-normal justify-between gap-10">
                 <Thermometer size={42}/>
@@ -202,7 +203,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
               </div>
             </div>
             <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center 
-             gap-4 rounded-3xl py-6 px-8 h-auto w-full">
+             gap-4 rounded-3xl xl:w-full py-6 px-8 h-auto w-full">
               <p className="text-md font-semibold">Vento</p>
               <div className="flex justify-between gap-10">
                 <Wind size={38} />
@@ -215,7 +216,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
             <div className="flex flex-col lg:flex-row 2xl:flex-row mt-4 gap-4">
               <div 
                className="bg-zinc-900 bg-opacity-50 flex flex-col gap-4 py-6 
-               px-8 justify-center rounded-3xl xl:full 2xl:w-[17.6rem] h-auto w-full"
+               px-8  xl:w-full justify-center rounded-3xl xl:full 2xl:w-[17.6rem] h-auto w-full"
               >
                 <p className="text-md font-semibold">Índice UV</p>
                 <div className="flex justify-between gap-10">
@@ -226,10 +227,9 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
                 </div>
               </div>
 
-              <div className="flex gap-10">
                 <div className="bg-zinc-900 bg-opacity-50 flex flex-col gap-4
                  justify-center rounded-3xl py-6 px-8 2xl:w-[17.6rem] h-auto 
-                 w-full">
+                 w-full xl:w-full">
                   <p className="text-md font-semibold">Direção do vento</p>
                   <div className="flex justify-between gap-10">
                     <Compass size={38} />
@@ -238,15 +238,13 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
                     </div>
                   </div>
                 </div>
-              </div>
-
             </div>
         </div>
 
 
-        <div className="flex flex-col gap-4 ">
+        <div className="flex flex-col gap-4 w-full ">
           <div className="bg-zinc-900 bg-opacity-50 flex flex-col gap-2 
-          rounded-3xl py-5 px-6 h-auto 2xl:w-full lg:w-full w-[22rem]">
+          rounded-3xl py-5 px-6 h-auto 2xl:w-full lg:w-full xl:w-full w-[22rem]">
            <span className="mb-4 font-medium">Nascer e Por do sol</span>
 
            <div className="flex md:justify-between items-start gap-32 justify-start">
@@ -280,7 +278,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
 
       <div className="flex flex-col lg:flex-row 2xl:flex-row gap-4">
           <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center 
-            gap-4 rounded-3xl py-6 px-8 2xl:w-[17.6rem] h-auto w-full">
+            gap-4 rounded-3xl py-6 px-8 2xl:w-[17.6rem] xl:w-full h-auto w-full">
               <p className="text-md font-semibold">Pressão Atmosférica</p>
             <div className="flex justify-between items-center gap-10">
               <Waves size={38}/>
@@ -288,7 +286,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
             </div>
           </div>
           <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 
-             2xl:w-[17.6rem] h-auto w-full">
+             2xl:w-[17.6rem] xl:w-full h-auto w-full">
             <p className="text-md font-semibold">Visibilidade</p>
             <div className="flex justify-between items-center gap-10">
               <Eye size={42}/>
@@ -299,7 +297,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
 
         <div className="flex flex-col lg:flex-row 2xl:flex-row gap-4">
            <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8 
-             2xl:w-[17.6rem] h-auto w-full">
+             2xl:w-[17.6rem] xl:w-full h-auto w-full">
               <p className="text-md font-semibold">Probabilidade de Chuva</p>
                 <div className="flex justify-between items-center gap-10">
                   <CloudRain size={42} />
@@ -310,7 +308,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
             </div> 
 
             <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center gap-4 rounded-3xl py-6 px-8
-              2xl:w-[17.6rem]  h-auto w-full">
+              2xl:w-[17.6rem] xl:w-full h-auto w-full">
                 <p className="text-md font-semibold">Fase da Lua</p> 
                 <div className="flex justify-between gap-10 items-center">
                   <Moon size={38}/>
