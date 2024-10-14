@@ -25,11 +25,11 @@ function App() {
   };
 
   return (
-     <>
+     <div>
       <Header onSearch={handleSearch}/>
       {error && <p className="text-center ml-28 text-xl font-semibold text-zinc-500 mt-20 ">{error}</p>}
       {weatherData && currentWeather && <Weather weatherData={weatherData} currentWeather={currentWeather} />}
-     </>
+     </div>
 
   )
 }

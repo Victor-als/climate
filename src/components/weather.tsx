@@ -41,10 +41,9 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
   }, [currentWeather]);
 
   return (
-    <div className="flex flex-col lg:flex-row gap-12 2xl:gap-16 mx-8 2xl:mx-20 pb-16 mb-16 pt-36">
+    <div className="flex flex-col lg:flex-row gap-12 2xl:gap-16 mx-8 2xl:mx-0 2xl:ml-20 pb-16 mb-16 pt-36">
      <div className="flex flex-col text-white">
-       <div className="absolute w-32 h-16 blur-md top-48 left-64 lg:left-40 
-       rounded-full shadow-2xl shadow-blue-800/100 bg-blue-600"></div>
+     
       {currentWeather && (
         <div className="flex pl-10 w-full flex-col shadow-shape items-start p-10 
          justify-center bg-white bg-clip-padding backdrop-filter backdrop-blur-2xl 
@@ -113,7 +112,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
     </div>
 
 
-     <div className="w-full">
+     <div>
             <WeatherDetails currentWeather={currentWeather} />
 
             {hourlyForecast.length > 0 && (

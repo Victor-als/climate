@@ -17,10 +17,17 @@ export function Header ({ onSearch }: IHeaderProps){
       setCity('');  // Limpa o campo de pesquisa após a busca
     }
   };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   
   return(
     <header className="fixed w-full flex items-center justify-between 
-     h-24 bg-opacity-90 backdrop-blur-lg z-50 px-8">  
+     h-24 bg-opacity-90 backdrop-blur-lg z-50 px-8 ">  
       <div className="ml-4"> 
        <img src={logo} alt="Logo" />
       </div>
@@ -30,6 +37,7 @@ export function Header ({ onSearch }: IHeaderProps){
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Digite sua localidade"
           className="p-4 w-[16rem] 2xl:w-[30rem] h-11 rounded-2xl bg-zinc-800 
            bg-opacity-75 text-zinc-400"
