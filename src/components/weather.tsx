@@ -135,7 +135,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
                       <img
                         src={getIconUrl(hour.weather[0].icon)}
                         alt={hour.weather[0].description}
-                        className="w-20 h-20"
+                        className="2xl:w-20 2xl:h-20"
                       />
                       <p className="text-2xl font-semibold">
                         {formatTemperature(hour.main.temp)}°C 

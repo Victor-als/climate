@@ -27,9 +27,9 @@ export function Header ({ onSearch }: IHeaderProps){
   
   return(
     <header className="fixed w-full flex items-center justify-between 
-     h-24 bg-opacity-90 backdrop-blur-lg z-50 px-8 ">  
-      <div className="ml-4"> 
-       <img src={logo} alt="Logo" />
+     h-24 bg-opacity-90 backdrop-blur-lg z-50 2xl:px-8 px-8">  
+      <div className="2xl:ml-4"> 
+       <img  src={logo} alt="Logo" />
       </div>
 
       <div className="flex gap-4 mx-auto">
@@ -39,7 +39,7 @@ export function Header ({ onSearch }: IHeaderProps){
           onChange={(e) => setCity(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Digite sua localidade"
-          className="p-4 w-[16rem] 2xl:w-[30rem] h-11 rounded-2xl bg-zinc-800 
+          className="p-4 xl:w-[16rem] 2xl:w-[30rem] h-11 rounded-2xl bg-zinc-800 
            bg-opacity-75 text-zinc-400"
         />
         
