@@ -41,7 +41,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
   }, [currentWeather]);
 
   return (
-    <div className="flex flex-col lg:flex-row gap-12 2xl:gap-16 mx-8 2xl:mx-0 2xl:ml-20 pb-16 mb-16 pt-36">
+    <div className="flex flex-col lg:flex-row gap-12 2xl:gap-16 mx-8 2xl:mx-0 2xl:ml-20 pb-16 pt-36">
      <div className="flex flex-col text-white">
      
       {currentWeather && (
@@ -126,8 +126,8 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
                     <div
                       key={index}
                       className="bg-white bg-clip-padding backdrop-filter 
-                      backdrop-blur-md  bg-opacity-10 p-4 rounded-xl shadow-shape
-                     text-zinc-50 flex flex-col items-center 2xl:w-[8.2rem] w-full"
+                      backdrop-blur-md  bg-opacity-10 p-4 rounded-xl shadow-shape 
+                     text-zinc-50 flex flex-col items-center 2xl:w-[8.2rem] w-full mb-6"
                     >
                       <p className="text-xl font-semibold">
                         {format(new Date(hour.dt * 1000), "HH:mm")}

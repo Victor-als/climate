@@ -134,7 +134,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
   return( 
     <div className="shadow-shape bg-clip-padding backdrop-filter backdrop-blur-sm 
     bg-opacity-10 bg-white rounded-3xl text-zinc-300 w-full max-w-[80rem] 
-    flex flex-col items-center lg:items-start px-4 lg:px-5 pb-6 mb-10 mt-10 2xl:mt-0 
+    flex flex-col items-center lg:items-start px-4 lg:px-5 pb-6 mb-6 mt-10 2xl:mt-0 
     2xl:px-10">
       
        <h2 className="text-zinc-50 font-bold pt-4">Detalhes de hoje</h2>
