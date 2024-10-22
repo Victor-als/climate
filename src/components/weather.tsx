@@ -41,7 +41,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
   }, [currentWeather]);
 
   return (
-    <div className="flex flex-col lg:flex-row gap-12 2xl:gap-16 mx-8 2xl:mx-0 2xl:ml-20 pb-16 pt-36">
+    <div className="flex flex-col lg:flex-row gap-12 2xl:gap-16 mx-8 2xl:mx-0 2xl:ml-12 pb-16 pt-36">
      <div className="flex flex-col text-white">
      
       {currentWeather && (

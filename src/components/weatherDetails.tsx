@@ -133,8 +133,8 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
 
   return( 
     <div className="shadow-shape bg-clip-padding backdrop-filter backdrop-blur-sm 
-    bg-opacity-10 bg-white rounded-3xl text-zinc-300 w-full max-w-[80rem] 
-    flex flex-col items-center lg:items-start px-4 lg:px-5 pb-6 mb-6 mt-10 2xl:mt-0 
+    bg-opacity-10 bg-white rounded-3xl text-zinc-300 w-full max-w-[150rem] 
+    flex flex-col items-center lg:items-start px-4 lg:px-5 pb-6 mb-6 mt-10 md:mt-0 2xl:mt-0 
     2xl:px-10">
       
        <h2 className="text-zinc-50 font-bold pt-4">Detalhes de hoje</h2>
@@ -244,7 +244,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
 
         <div className="flex flex-col gap-4 w-full ">
           <div className="bg-zinc-900 bg-opacity-50 flex flex-col gap-2 
-          rounded-3xl py-5 px-6 h-auto 2xl:w-full lg:w-full xl:w-full w-[22rem]">
+          rounded-3xl py-5 px-6 h-auto 2xl:w-full lg:w-full xl:w-full w-full">
            <span className="mb-4 font-medium">Nascer e Por do sol</span>
 
            <div className="flex md:justify-between items-start gap-32 justify-start">
