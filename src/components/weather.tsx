@@ -56,13 +56,18 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
                 <p className="text-5xl md:text-6xl lg:text-7xl flex text-zinc-50 font-bold">
                   {formatTemperature(currentWeather.main.temp)}
                 <span className="text-lg">°C</span></p>
-                <img className="w-20 md:w-24 lg:w-20" 
-                  src={getIconUrl(currentWeather.weather[0].icon)} 
-                  alt={currentWeather.weather[0].description} 
-                />
+
+                <div className="flex items-center flex-col">
+                  <img className="w-20 md:w-24 lg:w-20" 
+                    src={getIconUrl(currentWeather.weather[0].icon)} 
+                    alt={currentWeather.weather[0].description} 
+                  />
+        
+                  <p className="text-md">{currentWeather.weather[0].description}</p>
+                </div>
               </div>
 
-              <div className="flex flex-1 gap-6 mt-5">
+              <div className="flex flex-col gap-2 mt-5">
                 <h2 className="flex items-center justify-center gap-1 text-md">
                     <MapPin size={18}/>
                     {currentWeather.name}
@@ -70,7 +75,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
                 <p className="text-md flex items-center gap-1"><Droplet size={18}/>
                  {currentWeather.main.humidity}%
                  </p>
-                <p className="text-md">{currentWeather.weather[0].description}</p>
+               
               </div>
           </div>
       )}
