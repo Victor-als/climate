@@ -8,8 +8,12 @@ function App() {
   const [weatherData, setWeatherData] = useState<any>(null);
   const [currentWeather, setCurrentWeather] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showContent, setShowContent] = useState<boolean>(false);
 
   const handleSearch = async (city: string) => {
+    setIsLoading(true);
+    setShowContent(false); 
     try {
       const currentData = await getCurrentWeatherData(city);
       const forecastData = await getWeatherData(city);
@@ -21,19 +25,31 @@ function App() {
       setError('Cidade não encontrada ou erro ao buscar o clima.');
       setWeatherData(null);
       setCurrentWeather(null);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+        setShowContent(true); 
+      }, 500)
     }
   };
 
   return (
     <div className="relative min-h-screen bg-zinc-950">
-      <div className="relative z-10">
+      <div className="relative z-10 animate-fade-in">
         <Header onSearch={handleSearch} />
         {error && (
           <p className="text-center text-md md:text-lg 2xl:text-2xl font-semibold text-zinc-500 pt-40">
             {error}
           </p>
         )}
-        {weatherData && currentWeather && (
+        
+        {isLoading && (
+          <div className="fixed inset-0 flex items-center justify-center">
+            <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-blue-500" />
+          </div>
+        )}
+
+        {!isLoading && showContent && weatherData && currentWeather && (
           <Weather weatherData={weatherData} currentWeather={currentWeather} />
         )}
       </div>

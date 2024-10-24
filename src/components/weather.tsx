@@ -48,7 +48,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
       {currentWeather && (
         <div className="flex pl-10 w-full flex-col shadow-shape items-start p-10 
          justify-center bg-white bg-clip-padding backdrop-filter backdrop-blur-2xl 
-          bg-opacity-10 rounded-3xl text-zinc-400">
+          bg-opacity-10 rounded-3xl text-zinc-400 animate-slide-right">
               <h2 className="flex items-center text-white gap-1 text-xl font-semibold">
                 Agora
                 </h2>
@@ -92,7 +92,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
 
     <div className="bg-white bg-clip-padding backdrop-filter backdrop-blur-sm 
          bg-opacity-10 w-full h-auto max-h-[28rem] shadow-shape rounded-3xl 
-         text-zinc-50 overflow-auto py-1">
+         text-zinc-50 overflow-auto py-1 animate-slide-up">
       <table className="table-auto w-full text-left text-zinc-50">
         <tbody className="space-y-4">
           {weatherData.list
@@ -128,7 +128,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
                   <Clock size={22} />
                   Previsão de 24 horas
                 </h2>
-                <div className="flex gap-5 2xl:gap-8 overflow-x-auto [&::-webkit-scrollbar]:hidden"> 
+                <div className="flex gap-5 2xl:gap-8 overflow-x-auto [&::-webkit-scrollbar]:hidden animate-slide-up"> 
                   {hourlyForecast.map((hour, index) => (
                     <div
                       key={index}
