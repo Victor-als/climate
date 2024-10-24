@@ -6,6 +6,7 @@ import { CalendarDays, Clock, Droplet, MapPin } from "lucide-react";
 import { WeatherDetails } from "./weatherDetails";
 import { useEffect, useState } from "react";
 import { getWeatherData } from "../services/api";
+import { Footer } from "./footer";
 
 interface IWeatherProps {
   weatherData: any;
@@ -47,7 +48,7 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
       {currentWeather && (
         <div className="flex pl-10 w-full flex-col shadow-shape items-start p-10 
          justify-center bg-white bg-clip-padding backdrop-filter backdrop-blur-2xl 
-          bg-opacity-5 rounded-3xl text-zinc-400">
+          bg-opacity-10 rounded-3xl text-zinc-400">
               <h2 className="flex items-center text-white gap-1 text-xl font-semibold">
                 Agora
                 </h2>
@@ -67,7 +68,9 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2 mt-5">
+              <hr className="h-px bg-zinc-900 opacity-20 w-full mt-6 mb-2" />
+
+              <div className="flex flex-col gap-2">
                 <h2 className="flex items-center justify-center gap-1 text-md">
                     <MapPin size={18}/>
                     {currentWeather.name}
@@ -81,22 +84,22 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
       )}
 
 {weatherData && (
-  <div className='mt-8 w-full max-w-full'>
+  <div className='mt-14 w-full max-w-full'>
     <h2 className="font-bold ml-4 flex items-center gap-4 text-zinc-50 mb-4">
-      <CalendarDays size={22} />
+      <CalendarDays size={22} /> 
       Previsão dos próximos 5 dias
     </h2>
 
     <div className="bg-white bg-clip-padding backdrop-filter backdrop-blur-sm 
          bg-opacity-10 w-full h-auto max-h-[28rem] shadow-shape rounded-3xl 
-         text-zinc-50 pt-4 px-4 overflow-auto">
+         text-zinc-50 overflow-auto py-1">
       <table className="table-auto w-full text-left text-zinc-50">
         <tbody className="space-y-4">
           {weatherData.list
             .filter((_: any, index: number) => index % 8 === 0)
             .map((day: any, index: number) => (
               <tr key={index}>
-                <td className="px-4 py-4 flex items-center">
+                <td className="px-5 py-4 flex items-center">
                   <img 
                     src={getIconUrl(day.weather[0].icon)} 
                     alt={day.weather[0].description} 
@@ -104,8 +107,8 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
                   />
                   {formatTemperature(day.main.temp)}°C
                 </td>
-                <td className="px-4 py-4">{formatDate(day.dt)}</td>
-                <td className="px-4 py-4 break-words">{day.weather[0].description}</td>
+                <td className="px-5 py-4">{formatDate(day.dt)}</td>
+                <td className="px-5 py-4 break-words">{day.weather[0].description}</td>
               </tr>
             ))}
         </tbody>
@@ -149,7 +152,9 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
                 </div>
               </div>
             )}
+            <Footer />
           </div>
+
    </div>
   );
 };
