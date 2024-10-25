@@ -1,4 +1,4 @@
-import looOpenweather from "../assets/openweather.png";
+import looOpenweather from "../../assets/openweather.png";
 
 export function Footer () {
   return (

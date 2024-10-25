@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Search } from 'lucide-react';
-import logo from '../assets/climate-logo.svg';
+import logo from '../../assets/climate-logo.svg';
 
 
 interface IHeaderProps{

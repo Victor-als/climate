@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { Header } from "./components/header"
-import { Weather }  from "./components/weather"
+import { Header } from "./components/Header/header"
+import { Weather }  from "./components/Weather/weather"
 import { getWeatherData, getCurrentWeatherData } from './services/api';
 
 function App() {
