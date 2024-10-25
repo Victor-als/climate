@@ -3,7 +3,7 @@
 import { format } from "date-fns";
 import { CloudRain, Compass, Eye, Moon, Sun, Sunrise, Sunset, Thermometer, Waves, Wind } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getAirQualityData, getWeatherData, getUVIndex} from "../services/api";
+import { getAirQualityData, getWeatherData, getUVIndex} from "../../services/api";
 
 interface IWeatherDetailsProps {
   currentWeather: any;
@@ -156,7 +156,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
 
               <Wind size={32}/>
 
-              <div className="flex flex-wrap lg:flex-nowrap gap-3">
+              <div className="flex flex-wrap lg:flex-nowrap gap-3 2xl:gap-8">
 
               <div className="flex flex-row-reverse lg:flex-col 2xl:flex-col gap-2 items-center">
                 <span className="text-sm text-zinc-400 font-semibold">PM2.5</span>
