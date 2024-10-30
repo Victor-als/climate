@@ -1,88 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { format } from "date-fns";
-import { CloudRain, Compass, Eye, Moon, Sun, Sunrise, Sunset, Thermometer, Waves, Wind } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getAirQualityData, getWeatherData, getUVIndex} from "../../services/api";
+import {
+  getAirQualityCategory,
+  getWindDirection,
+  getMoonPhase,
+  formatTemperature,
+  formatTime,
+} from "../WeatherDetails/utils/utils";
+import { getAirQualityData, getWeatherData, getUVIndex } from "../../services/api";
+import { Wind, Moon, Sunrise, Sunset, Thermometer, CloudRain, Eye, Waves, Compass, Sun } from "lucide-react";
 
 interface IWeatherDetailsProps {
   currentWeather: any;
-
 }
 
-const getAirQualityCategory = (aqi: number) => {
-  switch (aqi) {
-    case 1:
-      return { 
-        label: "Boa", 
-        className: "bg-green-700 rounded-xl text-green-100 px-4 font-semibold" 
-      };
-    case 2:
-      return { 
-        label: "Moderada", 
-        className: " bg-yellow-600 rounded-xl text-yellow-50 px-4 font-semibold" 
-      };
-    case 3:
-      return { 
-        label: "Ruim", 
-        className: "bg-orange-600 rounded-xl text-orange-100 px-4 font-semibold" 
-      };
-    case 4:
-      return { 
-        label: "Ruim", 
-        className: "bg-red-500 px-4 text-red-100 font-semibold rounded-xl" 
-      };
-    case 5:
-      return { 
-        label: "Muito ruim",
-        className: "bg-red-900 px-4 font-semibold text-red-100 rounded-xl" 
-      };
-    default:
-      return { 
-        label: "Desconhecida", 
-        className: "bg-gray-500 text-gray-50 px-4 font-semibold rounded-xl" 
-      };
-  }
-};
-export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
+export function WeatherDetails({ currentWeather }: IWeatherDetailsProps) {
   const [airQuality, setAirQuality] = useState<any>(null);
   const [rainProbability, setRainProbability] = useState<number | null>(null);
   const [uvIndex, setUVIndex] = useState<number | null>(null);
-  const [moonPhase, setMoonPhase] = useState<string | null>(null); 
-
-  const formatTemperature = (temp: number) => Math.round(temp); 
-  const formatTime = (timestamp: number) => format(new Date(timestamp * 1000), 'HH:mm');
-
-  const getMoonPhase = (date: Date) => {
-    const moonCycle = 29.53; 
-    const baseDate = new Date(2000, 0, 6); 
-    const daysSinceBase = (date.getTime() - baseDate.getTime()) / (1000 * 60 * 60 * 24);
-    const phase = (daysSinceBase % moonCycle) / moonCycle;
-  
-    if (phase < 0.03) return 'Nova'; 
-    if (phase < 0.25) return 'Crescente'; 
-    if (phase < 0.27) return 'Quarto Crescente'; 
-    if (phase < 0.53) return 'Cheia'; 
-    if (phase < 0.75) return 'Minguante'; 
-    if (phase < 0.77) return 'Quarto Minguante'; 
-    return 'Nova'; 
-  };
-
-
-  const getWindDirection = (degree: number) => {
-    if (degree > 337.5 || degree <= 22.5) return 'Norte';
-    if (degree > 22.5 && degree <= 67.5) return 'Nordeste';
-    if (degree > 67.5 && degree <= 112.5) return 'Leste';
-    if (degree > 112.5 && degree <= 157.5) return 'Sudeste';
-    if (degree > 157.5 && degree <= 202.5) return 'Sul';
-    if (degree > 202.5 && degree <= 247.5) return 'Sudoeste';
-    if (degree > 247.5 && degree <= 292.5) return 'Oeste';
-    if (degree > 292.5 && degree <= 337.5) return 'Noroeste';
-    return '';
-  };
-   
-
-  const windDirection = getWindDirection(currentWeather.wind.deg);
+  const [moonPhase, setMoonPhase] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchAirQuality = async () => {
@@ -92,17 +28,17 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
           const airQualityData = await getAirQualityData(coord.lat, coord.lon);
           setAirQuality(airQualityData);
         } catch (error) {
-          console.error('Erro ao buscar dados de qualidade do ar:', error);
+          console.error("Erro ao buscar dados de qualidade do ar:", error);
         }
       }
     };
 
     const fetchRainProbability = async () => {
       try {
-        const weatherData = await getWeatherData(currentWeather.name); 
-        setRainProbability(weatherData.rainProbability); 
+        const weatherData = await getWeatherData(currentWeather.name);
+        setRainProbability(weatherData.rainProbability);
       } catch (error) {
-        console.error('Erro ao buscar a probabilidade de chuva:', error);
+        console.error("Erro ao buscar a probabilidade de chuva:", error);
       }
     };
 
@@ -113,24 +49,24 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
           const uvData = await getUVIndex(coord.lat, coord.lon);
           setUVIndex(uvData.value);
         } catch (error) {
-          console.error('Erro ao buscar o índice UV:', error);
+          console.error("Erro ao buscar o índice UV:", error);
         }
       }
     };
-
 
     if (currentWeather) {
       fetchAirQuality();
       fetchRainProbability();
       fetchUVIndex();
-      setMoonPhase(getMoonPhase(new Date())); 
+      setMoonPhase(getMoonPhase(new Date()));
     }
   }, [currentWeather]);
-  
+
   const airQualityInfo = airQuality
     ? getAirQualityCategory(airQuality.list[0].main.aqi)
-    : { label: 'Carregando...', className: '' };
+    : { label: "Carregando...", className: "" };
 
+  const windDirection = getWindDirection(currentWeather.wind.deg);
   return( 
     <div className="shadow-shape bg-clip-padding backdrop-filter backdrop-blur-sm 
     bg-opacity-10 bg-white rounded-3xl text-zinc-300 w-full max-w-[150rem] 
@@ -153,18 +89,15 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
             </div>
              
             <div className="flex gap-8 mt-[1.70rem] items-center">
-
               <Wind size={32}/>
-
               <div className="flex flex-wrap lg:flex-nowrap gap-3 2xl:gap-8">
-
               <div className="flex flex-row-reverse lg:flex-col 2xl:flex-col gap-2 items-center">
                 <span className="text-sm text-zinc-400 font-semibold">PM2.5</span>
                 <span className="text-xl 2xl:text-3xl lg:text-2xl font-semibold">
                   {airQuality ? airQuality.list[0].components.pm2_5 : '...'}
                 </span>
               </div>
-
+ 
               <div className="flex flex-row-reverse lg:flex-col 2xl:flex-col gap-2 items-center">
                 <span className="text-sm text-zinc-400 font-semibold">SO2</span>
                 <span className="text-xl 2xl:text-3xl lg:text-2xl font-semibold">
@@ -195,7 +128,7 @@ export function WeatherDetails ({currentWeather}: IWeatherDetailsProps) {
             <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center
              gap-4 rounded-3xl py-6 px-8 w-full">
               <p className="text-md font-semibold">Sensação Térmica</p>
-              <div className="flex 2xl:justify-normal justify-between gap-10">
+              <div className="flex justify-between gap-10">
                 <Thermometer size={42}/>
                 <p className="text-3xl font-medium">
                    {formatTemperature(currentWeather.main.feels_like)}°C

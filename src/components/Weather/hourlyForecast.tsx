@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { Clock } from "lucide-react";
 
 interface HourlyForecastProps {

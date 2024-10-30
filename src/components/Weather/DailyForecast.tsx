@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { CalendarDays } from "lucide-react";
-
 
 interface DailyForecastProps {
   weatherData: any;
@@ -9,7 +7,6 @@ interface DailyForecastProps {
   formatDate: (timestamp: number) => string;
   getIconUrl: (iconCode: string) => string;
 }
-
 
 export function DailyForecast({ weatherData, formatTemperature, formatDate, getIconUrl}: DailyForecastProps) {
   return (

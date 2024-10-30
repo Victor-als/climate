@@ -1,13 +1,11 @@
 import { Droplet, MapPin } from "lucide-react";
 
-
 interface WeatherHeaderProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   currentWeather: any;
   formatTemperature: (temp: number) => number;
   getIconUrl: (iconCode: string) => string;
 }
-
 
 export function WeatherCard ({ currentWeather, formatTemperature, getIconUrl }: WeatherHeaderProps) {
   return (
