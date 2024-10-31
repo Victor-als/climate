@@ -42,10 +42,10 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
 
   return (
     <div className="flex flex-col lg:flex-row gap-12 2xl:gap-16 mx-8 2xl:mx-0 2xl:ml-12 pb-16 pt-36">
-     <div className="flex flex-col text-white">
-     
+    {/* Seção sticky de temperatura atual e previsão */}
+    <div className="lg:sticky lg:top-4 lg:h-[80vh] flex flex-col text-white space-y-4">
       {currentWeather && (
-        <WeatherCard 
+        <WeatherCard
           currentWeather={currentWeather}
           formatTemperature={formatTemperature}
           getIconUrl={getIconUrl}
@@ -53,26 +53,27 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
       )}
 
       {weatherData && (
-        <DailyForecast 
-         weatherData={weatherData}
-         formatTemperature={formatTemperature}
-         formatDate={formatDate}
-         getIconUrl={getIconUrl}
+        <DailyForecast
+          weatherData={weatherData}
+          formatTemperature={formatTemperature}
+          formatDate={formatDate}
+          getIconUrl={getIconUrl}
         />
       )}
     </div>
 
-     <div>
-            <WeatherDetails currentWeather={currentWeather} />
-            {hourlyForecast.length > 0 && (
-              <HourlyForecast 
-                hourlyForecast={hourlyForecast} 
-                formatTemperature={formatTemperature} 
-                getIconUrl={getIconUrl} 
-              />
-            )}
-            <Footer />
-          </div>
-   </div>
+    {/* Detalhes do tempo e outras previsões */}
+    <div>
+      <WeatherDetails currentWeather={currentWeather} />
+      {hourlyForecast.length > 0 && (
+        <HourlyForecast
+          hourlyForecast={hourlyForecast}
+          formatTemperature={formatTemperature}
+          getIconUrl={getIconUrl}
+        />
+      )}
+      <Footer />
+    </div>
+  </div>
   );
 };
