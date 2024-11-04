@@ -1,37 +1,66 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
-import { Header } from "./components/Header/header"
-import { Weather }  from "./components/Weather/weather"
+import { useState, useEffect } from "react";
+import { Header } from "./components/Header/header";
+import { Weather } from "./components/Weather/weather";
 import { getWeatherData, getCurrentWeatherData } from './services/api';
 
 function App() {
   const [weatherData, setWeatherData] = useState<any>(null);
   const [currentWeather, setCurrentWeather] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showContent, setShowContent] = useState<boolean>(false);
+
+  const fetchInitialLocationWeather = async () => {
+    try {
+      setIsLoading(true);
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+          const { latitude, longitude } = position.coords;
+          const currentWeatherData = await getCurrentWeatherData(latitude, longitude);
+          const forecastData = await getWeatherData(currentWeatherData.name);
+          
+          setCurrentWeather(currentWeatherData);
+          setWeatherData(forecastData);
+          setError(null);
+          setShowContent(true);
+        });
+      } else {
+        setError("Geolocalização não suportada pelo navegador.");
+      }
+    } catch (error) {
+      setError("Erro ao obter dados da localização atual.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSearch = async (city: string) => {
     setIsLoading(true);
     setShowContent(false); 
     try {
-      const currentData = await getCurrentWeatherData(city);
       const forecastData = await getWeatherData(city);
-      setCurrentWeather(currentData);
       setWeatherData(forecastData);
+
+      const currentWeatherData = await getCurrentWeatherData(forecastData.city.coord.lat, forecastData.city.coord.lon);
+      setCurrentWeather(currentWeatherData);
       setError(null);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      setError('Cidade não encontrada ou erro ao buscar o clima.');
+      setError("Cidade não encontrada ou erro ao buscar o clima.");
       setWeatherData(null);
       setCurrentWeather(null);
     } finally {
       setTimeout(() => {
         setIsLoading(false);
         setShowContent(true); 
-      }, 500)
+      }, 500);
     }
   };
+
+  useEffect(() => {
+    fetchInitialLocationWeather();
+  }, []);
 
   return (
     <div className="relative min-h-screen bg-zinc-950">
@@ -55,8 +84,7 @@ function App() {
       </div>
 
       <div
-        className="
-          fixed -bottom-96 -left-32 w-[24rem] h-[24rem] rounded-full 
+        className="fixed -bottom-96 -left-32 w-[24rem] h-[24rem] rounded-full 
           bg-gradient-to-br from-blue-900 via-blue-700 to-[#00d4ff] 
           blur-[12rem] opacity-55
           shadow-[0_0_80px_30px_#00d4ff,0_0_100px_40px_#00aaff,0_0_150px_50px_#007acc]
@@ -65,11 +93,10 @@ function App() {
           lg:-bottom-72 lg:-left-16 lg:w-[25rem] lg:h-[25rem] lg:blur-[8rem]
           xl:-bottom-80 xl:-left-12 xl:w-[16rem] xl:h-[16rem] xl:blur-[8rem]
         "
-/>
+      />
 
       <div
-        className="
-          fixed -top-96 -right-24 w-[22rem] h-[22rem] rounded-full 
+        className="fixed -top-96 -right-24 w-[22rem] h-[22rem] rounded-full 
           bg-gradient-to-br from-blue-900 via-blue-700 to-[#00d4ff] 
           blur-[10rem] opacity-55
           shadow-[0_0_80px_30px_#00d4ff,0_0_100px_40px_#00aaff,0_0_150px_50px_#007acc]
@@ -79,8 +106,8 @@ function App() {
           xl:-top-72 xl:right-16 xl:w-[20rem] xl:h-[18rem] xl:blur-[8rem]
         "
       />
-   </div>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
