@@ -11,6 +11,12 @@ O Projeto consiste em uma aplicação de clima, foi feito por mim para adquirir 
 - tailwindCSS
 - TypeScript
 
+- ## Acesse o aplicativo publicado pelo link: 
+```sh
+  https://climate-chi.vercel.app
+```
+
+
 ## Para rodar o projeto localmente
 
 1. Clone o repositório:
