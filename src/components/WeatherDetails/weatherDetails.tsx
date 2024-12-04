@@ -75,12 +75,12 @@ export function WeatherDetails({ currentWeather }: IWeatherDetailsProps) {
       
        <h2 className="text-zinc-50 font-bold pt-4">Detalhes de hoje</h2>
 
-    <div className="flex lg:flex-col 2xl:flex-row xl:w-full lg:w-full 2xl:items-center 
+    <div className="flex items-center sm:items-stretch lg:flex-col 2xl:flex-row xl:w-full lg:w-full 2xl:items-center 
      flex-col gap-10 mt-6">
       <div>
           <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center 
            gap-2 rounded-3xl py-4 px-6 h-auto 2xl:w-full lg:w-full md:w-full xl:w-full 
-           sm:w-full">
+           sm:w-full w-[18rem]">
             <div className="flex justify-between">
               <p className="font-medium">Qualidade do ar</p>
               <p className={airQualityInfo.className}>
@@ -124,7 +124,7 @@ export function WeatherDetails({ currentWeather }: IWeatherDetailsProps) {
           </div>
 
 
-        <div className="flex flex-col lg:flex-row 2xl:flex-row mt-4 gap-4 w-full">
+        <div className="flex flex-col items-center lg:flex-row 2xl:flex-row mt-4 gap-4 w-full">
             <div className="bg-zinc-900 bg-opacity-50 flex flex-col justify-center
              gap-4 rounded-3xl py-6 px-8 w-full">
               <p className="text-md font-semibold">Sensação Térmica</p>
@@ -177,10 +177,10 @@ export function WeatherDetails({ currentWeather }: IWeatherDetailsProps) {
 
         <div className="flex flex-col gap-4 w-full ">
           <div className="bg-zinc-900 bg-opacity-50 flex flex-col gap-2 
-          rounded-3xl py-5 px-6 h-auto 2xl:w-full lg:w-full xl:w-full w-full">
+          rounded-3xl py-5 px-6 h-auto 2xl:w-full lg:w-full xl:w-full sm:w-full w-[18rem]">
            <span className="mb-4 font-medium">Nascer e Por do sol</span>
 
-           <div className="flex md:justify-between items-start gap-32 justify-start">
+           <div className="flex md:justify-between items-start sm:gap-32 gap-16 justify-start">
              <div>
               <div className="flex flex-col lg:flex-row lg:items-center 2xl:flex-row 
                2xl:items-center gap-6 ">
