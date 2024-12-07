@@ -27,11 +27,11 @@ export function DailyForecast({ weatherData, formatTemperature, formatDate, getI
             .filter((_: any, index: number) => index % 8 === 0)
             .map((day: any, index: number) => (
               <tr key={index}>
-                <td className="px-5 py-4 flex gap-2 items-center">
+                <td className="px-5 py-4 flex gap-3 items-center">
                   <img 
                     src={getIconUrl(day.weather[0].icon)} 
                     alt={day.weather[0].description} 
-                    className="w-8 h-10"
+                    className="w-10 h-10"
                   />
                   {formatTemperature(day.main.temp)}°C
                 </td>
