@@ -6,7 +6,7 @@ import {
   getMoonPhase,
   formatTemperature,
   formatTime,
-} from "../WeatherDetails/utils/utils";
+} from "../utils/utils";
 import { getAirQualityData, getWeatherData, getUVIndex } from "../../services/api";
 import { Wind, Moon, Sunrise, Sunset, Thermometer, CloudRain, Eye, Waves, Compass, Sun } from "lucide-react";
 

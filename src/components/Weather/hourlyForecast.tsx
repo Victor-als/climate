@@ -28,7 +28,7 @@ export function HourlyForecast ({hourlyForecast, formatTemperature, getIconUrl}:
           <img
             src={getIconUrl(hour.weather[0].icon)}
             alt={hour.weather[0].description}
-            className="2xl:w-20 2xl:h-20"
+            className="2xl:w-14 2xl:h-14"
           />
           <p className="text-2xl font-semibold">
             {formatTemperature(hour.main.temp)}°C 

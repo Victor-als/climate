@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { WeatherDetails } from "../WeatherDetails/weatherDetails";
@@ -8,6 +9,7 @@ import { Footer } from "../footer/footer";
 import { DailyForecast } from "./DailyForecast";
 import { HourlyForecast } from "./hourlyForecast";
 import { WeatherCard } from "./weatherCard";
+import { getIconUrl } from "../utils/utils";
 
 interface IWeatherProps {
   weatherData: any;
@@ -17,7 +19,6 @@ interface IWeatherProps {
 export function Weather ({currentWeather, weatherData}: IWeatherProps){
   const [hourlyForecast, setHourlyForecast] = useState<any[]>([])
 
-  const getIconUrl = (iconCode: string) => `http://openweathermap.org/img/wn/${iconCode}.png`;
   const formatTemperature = (temp: number) => Math.round(temp); 
   const formatDate = (timestamp: number) => {
     return format(new Date(timestamp * 1000), 'dd MMM', { locale: ptBR });

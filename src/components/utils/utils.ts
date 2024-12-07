@@ -1,3 +1,17 @@
+import sun from '../../assets/sun.png';
+import moon from '../../assets/moon.png';
+import sunCloud from '../../assets/sun-cloud.png';
+import cloudNight from '../../assets/cloud-night.png';
+import clouds from '../../assets/clouds.png';
+import brokenClouds from '../../assets/broken-clouds.png';
+import rain from '../../assets/rain.png';
+import rainShowerSun from '../../assets/rain-shower-sun.png';
+import rainShowerMoon from '../../assets/rain-shower-moon.png';
+import thunderstorm from '../../assets/thunderstorm.png';
+import snow from '../../assets/snow.png';
+import mist from '../../assets/mist.png';
+
+
 export const getAirQualityCategory = (aqi: number) => {
   switch (aqi) {
     case 1:
@@ -49,3 +63,35 @@ export const formatTime = (timestamp: number) =>
     hour: "2-digit",
     minute: "2-digit",
   });
+
+  export const getIconUrl = (iconCode: string) => {
+    console.log("IconCode recebido:", iconCode);
+    const iconMapping: { [key: string]: string } = {
+     "01d": sun,     
+    "01n": moon,   
+    "02d": sunCloud, 
+    "02n": cloudNight, 
+    "03d": clouds,        
+    "03n": clouds,        
+    "04d": brokenClouds, 
+    "04n": brokenClouds,
+    "09d": rain,   
+    "09n": rain,   
+    "10d": rainShowerSun,   
+    "10n": rainShowerMoon,   
+    "11d": thunderstorm,  
+    "11n": thunderstorm,  
+    "13d": snow,        
+    "13n": snow,
+    "50d": mist,          
+    "50n": mist,
+    };
+  
+    if (iconMapping[iconCode]) {
+      console.log("Ícone encontrado no mapeamento:", iconMapping[iconCode]);
+      return iconMapping[iconCode]; // Retorna o ícone personalizado
+    }
+  
+    console.log("Ícone não encontrado no mapeamento, retornando da API");
+    return `http://openweathermap.org/img/wn/${iconCode}.png`; // Retorna o ícone da API
+  };

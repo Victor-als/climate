@@ -1,5 +1,4 @@
 import { Droplet, MapPin } from "lucide-react";
-
 interface WeatherHeaderProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   currentWeather: any;
@@ -21,8 +20,8 @@ export function WeatherCard ({ currentWeather, formatTemperature, getIconUrl }: 
              {formatTemperature(currentWeather.main.temp)}
            <span className="text-lg">°C</span></p>
 
-           <div className="flex items-center flex-col">
-             <img className="w-20 md:w-24 lg:w-20" 
+           <div className="flex items-center flex-col gap-2">
+             <img className="w-20 md:w-14 lg:w-16" 
                src={getIconUrl(currentWeather.weather[0].icon)} 
                alt={currentWeather.weather[0].description} 
              />
