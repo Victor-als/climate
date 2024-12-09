@@ -13,7 +13,7 @@ O Projeto consiste em uma aplicação de clima, foi feito por mim para adquirir 
 
 - ## Acesse o aplicativo publicado pelo link: 
 ```sh
-  https://climate-chi.vercel.app
+  https://climate-pearl.vercel.app
 ```
 
 

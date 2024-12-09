@@ -20,7 +20,7 @@ export function HourlyForecast ({hourlyForecast, formatTemperature, getIconUrl}:
           key={index}
           className="bg-white bg-clip-padding backdrop-filter 
           backdrop-blur-md  bg-opacity-10 p-4 rounded-xl shadow-shape 
-         text-zinc-50 flex flex-col items-center 2xl:w-[8.2rem] w-full mb-6"
+         text-zinc-50 gap-2 flex flex-col items-center 2xl:w-[8.2rem] w-full mb-6"
         >
           <p className="text-xl font-semibold">
            {new Date(hour.dt * 1000).toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' })} 
@@ -28,7 +28,7 @@ export function HourlyForecast ({hourlyForecast, formatTemperature, getIconUrl}:
           <img
             src={getIconUrl(hour.weather[0].icon)}
             alt={hour.weather[0].description}
-            className="2xl:w-14 2xl:h-14"
+            className="2xl:w-10 2xl:h-10"
           />
           <p className="text-2xl font-semibold">
             {formatTemperature(hour.main.temp)}°C 
