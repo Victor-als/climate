@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Search } from 'lucide-react';
 import logo from '../../assets/climate-logo.svg';
+import logoMobile from '../../assets/logo-mobile.png';
 
 interface IHeaderProps{
   onSearch: (city: string) => void;
@@ -26,7 +27,9 @@ export function Header ({ onSearch }: IHeaderProps){
     <header className="fixed w-full flex items-center justify-between 
      h-24 bg-opacity-90 backdrop-blur-lg z-50 2xl:px-8 px-8">  
       <div className="2xl:ml-4"> 
-       <img  src={logo} alt="Logo" />
+       <img className="hidden sm:block w-auto h-auto" src={logo} alt="Logo" />
+
+       <img className="block sm:hidden w-10 h-10" src={logoMobile} alt="Logo" />
       </div>
 
       <div className="flex gap-4 mx-auto">
