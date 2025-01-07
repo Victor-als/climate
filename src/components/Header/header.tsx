@@ -29,7 +29,7 @@ export function Header ({ onSearch }: IHeaderProps){
       <div className="2xl:ml-4"> 
        <img className="hidden sm:block w-auto h-auto" src={logo} alt="Logo" />
 
-       <img className="block sm:hidden mr-12 h-8 w-8" src={logoMobile} alt="Logo" />
+       <img className="block sm:hidden mr-4 h-8 w-8" src={logoMobile} alt="Logo" />
       </div>
 
       <div className="flex gap-4 mx-auto">
@@ -41,7 +41,7 @@ export function Header ({ onSearch }: IHeaderProps){
           placeholder="Digite sua localidade"
           className="hover:outline outline-none 
           hover:outline-blue-500 transition-all duration-200 p-4 xl:w-[30rem] 
-          lg:w-[25rem] w-[12rem] md:w-[25rem] h-11 rounded-2xl bg-zinc-800 bg-opacity-75
+          lg:w-[25rem] w-[15rem] md:w-[25rem] h-11 rounded-2xl bg-zinc-800 bg-opacity-75
           text-zinc-400"
         />
         
