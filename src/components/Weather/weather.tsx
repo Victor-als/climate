@@ -10,6 +10,7 @@ import { DailyForecast } from "./DailyForecast";
 import { HourlyForecast } from "./hourlyForecast";
 import { WeatherCard } from "./weatherCard";
 import { getIconUrl } from "../utils/utils";
+import { WeatherCharts } from "./weatherCharts";
 
 interface IWeatherProps {
   weatherData: any;
@@ -65,11 +66,14 @@ export function Weather ({currentWeather, weatherData}: IWeatherProps){
     <div>
       <WeatherDetails currentWeather={currentWeather} />
       {hourlyForecast.length > 0 && (
-        <HourlyForecast
-          hourlyForecast={hourlyForecast}
-          formatTemperature={formatTemperature}
-          getIconUrl={getIconUrl}
-        />
+        <><HourlyForecast
+            hourlyForecast={hourlyForecast}
+            formatTemperature={formatTemperature}
+            getIconUrl={getIconUrl} />
+            <WeatherCharts hourlyForecast={hourlyForecast} />
+          </>
+
+  
       )}
       <Footer />
     </div>
